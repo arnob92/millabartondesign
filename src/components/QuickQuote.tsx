@@ -5,29 +5,29 @@ import { Button } from '@/components/ui/button';
 import { Paintbrush, Home, Check } from 'lucide-react';
 
 type FormData = {
-  projectType: string;
-  numberOfRooms: string;
-  roomType: string;
+  projectType: string[];
+  numberOfRooms: string[];
+  roomType: string[];
   surfaceArea: number;
   postalCode: string;
   firstName: string;
   email: string;
   phone: string;
-  designStyle: string;
+  designStyle: string[];
 };
 
 export default function QuickQuote() {
   const [step, setStep] = useState(1);
   const [formData, setFormData] = useState<FormData>({
-    projectType: '',
-    numberOfRooms: '',
-    roomType: '',
-    surfaceArea: 50,
+    projectType: [],
+    numberOfRooms: [],
+    roomType: [],
+    surfaceArea: 0,
     postalCode: '',
     firstName: '',
     email: '',
     phone: '',
-    designStyle: '',
+    designStyle: [],
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<null | 'success' | 'error'>(null);
@@ -55,6 +55,16 @@ export default function QuickQuote() {
     setFormData((prevData) => ({ ...prevData, surfaceArea: Number(e.target.value) }));
   };
 
+  const handleCheckboxChange = (field: keyof FormData, value: string) => {
+    setFormData(prev => {
+      const currentValues = prev[field] as string[];
+      const newValues = currentValues.includes(value)
+        ? currentValues.filter(v => v !== value)
+        : [...currentValues, value];
+      return { ...prev, [field]: newValues };
+    });
+  };
+
   const handleSubmit = async () => {
     setIsSubmitting(true);
     setSubmitStatus(null);
@@ -71,9 +81,17 @@ export default function QuickQuote() {
         }),
       });
 
+      const sheetresponse = fetch('https://script.google.com/macros/s/AKfycbzlDOfmbVG5urrW-1yvWme1qbbtVEjO9tKMS6fWVupC-q19fSVQMijSLtB3B7UgsjVEvA/exec',{
+        method: 'POST',
+        body: JSON.stringify({
+          formData,
+          formType: 'quickquote'
+        }),
+      });
+
       if (response.ok) {
         setSubmitStatus('success');
-        setStep(7); // Move to success step
+        setStep(7);
       } else {
         setSubmitStatus('error');
       }
@@ -87,11 +105,11 @@ export default function QuickQuote() {
 
   const isNextButtonDisabled = () => {
     if (isSubmitting) return true;
-    if (step === 1) return !formData.projectType;
-    if (step === 2) return !formData.numberOfRooms;
-    if (step === 3) return !formData.roomType;
+    if (step === 1) return formData.projectType.length === 0;
+    if (step === 2) return formData.numberOfRooms.length === 0;
+    if (step === 3) return formData.roomType.length === 0;
     if (step === 4) return formData.surfaceArea < 10;
-    if (step === 5) return !formData.designStyle;
+    if (step === 5) return formData.designStyle.length === 0;
     if (step === 6) return !formData.postalCode || !formData.firstName || !formData.email || !formData.phone;
     return false;
   };
@@ -111,48 +129,57 @@ export default function QuickQuote() {
       <div className="container-custom">
         <h2 className="text-center mb-8">Devis en moins d'une minute</h2>
 
-        <div className="mb-10">
-          <div className="flex justify-center">
-            <div className="relative flex items-start justify-between w-full max-w-4xl px-4">
-              {/* Background line (gray) */}
-              <div className="absolute top-5 left-16 right-16 h-0.5 bg-gray-300 z-0"></div>
-              
-              {/* Progress line (black) */}
-              <div 
-                className="absolute top-5 left-16 h-0.5 bg-black z-0 transition-all duration-300"
-                style={{ 
-                  width: `${(step - 1) * (100 / 6)}%`, 
-                  maxWidth: step === 7 ? 'calc(100% - 8rem)' : `${(step - 1) * (100 / 7)}%` 
-                }}
-              ></div>
-              
-              {[1, 2, 3, 4, 5, 6, 7].map((stepNumber) => (
-                <div 
-                  key={stepNumber} 
-                  className="flex flex-col items-center relative z-10 cursor-pointer"
-                  style={{ width: 'calc(100% / 7)' }}
-                  onClick={() => {
-                    // Only allow jumping to completed steps or the current step
-                    if (stepNumber <= step) {
-                      setStep(stepNumber);
-                    }
-                  }}
-                >
-                  <div 
-                    className={`flex items-center justify-center w-10 h-10 rounded-full ${
-                      stepNumber <= step ? 'bg-black text-white' : 'bg-gray-200 text-gray-400'
-                    } font-bold text-lg transition-all duration-300`}
-                  >
-                    {stepNumber}
-                  </div>
-                  <div className="mt-3 text-center text-xs font-medium w-full px-1">
-                    {stepLabels[stepNumber - 1]}
-                  </div>
-                </div>
-              ))}
-            </div>
+        <div className="mb-12 relative">
+  {/* Progress line container */}
+  <div className="absolute top-6 left-4 right-4 h-0.5 bg-gray-300 z-0 md:top-8"></div>
+  
+  {/* Progress indicator */}
+  <div 
+    className="absolute top-6 left-4 h-0.5 bg-black z-0 transition-all duration-300 md:top-8"
+    style={{ 
+      width: `calc(${((step - 1) / 7) * 100}% - 2.24rem)`,
+      maxWidth: 'calc(100% - 2rem)'
+    }}
+  ></div>
+  
+  {/* Steps container */}
+  <div className="relative z-10 overflow-x-auto whitespace-nowrap px-4">
+    <div className="inline-flex w-full justify-between">
+      {[1, 2, 3, 4, 5, 6, 7].map((stepNumber) => (
+        <button
+          key={stepNumber}
+          type="button"
+          onClick={() => {
+            if (stepNumber <= step || stepNumber === 7) {
+              setStep(stepNumber);
+            }
+          }}
+          className={`inline-flex flex-col items-center ${stepNumber > step && stepNumber !== 7 ? 'cursor-default' : 'cursor-pointer'}`}
+          style={{ 
+            minWidth: `${100 / 7}%`,
+            width: `${100 / 7}%`
+          }}
+        >
+          <div 
+            className={`
+              flex items-center justify-center 
+              w-10 h-10 rounded-full  // Default mobile size
+              md:w-14 md:h-14 md:text-xl  // Larger on desktop
+              font-bold 
+              ${stepNumber <= step ? 'bg-black text-white' : 'bg-gray-200 text-gray-400'}
+            `}
+          >
+            {stepNumber}
           </div>
-        </div>
+          {/* Step label - hidden on small screens */}
+          <div className="mt-2 lg:mt-3 text-center text-xs lg:text-sm font-medium px-1 hidden lg:block">
+            {stepLabels[stepNumber - 1]}
+          </div>
+        </button>
+      ))}
+    </div>
+  </div>
+</div>
 
         <div className="max-w-3xl mx-auto">
           {submitStatus === 'error' && (
@@ -164,106 +191,165 @@ export default function QuickQuote() {
           {step === 1 && (
             <div className="text-center">
               <h3 className="text-xl font-semibold mb-6">Votre projet concerne-t-il ?</h3>
-              <div className="flex justify-center mb-6">
-                <div 
-                  className={`border-2 p-8 mx-2 cursor-pointer transition-all duration-200 ${formData.projectType === 'Decoration' ? 'border-black bg-gray-50' : 'border-gray-300 bg-gray-100'}`}
-                  style={{ height: '200px', width: '130px' }}
-                  onClick={() => setFormData({ ...formData, projectType: 'Decoration' })}
-                >
-                  <div className="flex flex-col items-center justify-center h-full">
-                    <img src="/images/quote/decoration.png" alt="Décoration" className="mb-4" />
-                    <p className="font-semibold">Décoration</p>
-                    <div className="flex items-center justify-center mt-2">
-                      <div className={`relative w-6 h-6 rounded-full border-2 flex items-center justify-center ${formData.projectType === 'Decoration' ? 'border-black' : 'border-gray-400'}`}>
-                        {formData.projectType === 'Decoration' && <Check className="h-6 w-6 text-white bg-black rounded-full p-0.5" />}
+              <div className="flex justify-center mb-6 gap-4">
+                {['Decoration', 'Renovation'].map((type) => (
+                  <div 
+                    key={type}
+                    className={`border-2 p-8 cursor-pointer transition-all duration-200 ${
+                      formData.projectType.includes(type) 
+                        ? 'border-black bg-gray-50' 
+                        : 'border-gray-300 bg-gray-100'
+                    }`}
+                    style={{ height: '312px', width: '227px' }}
+                    onClick={() => handleCheckboxChange('projectType', type)}
+                  >
+                    <div className="flex flex-col items-center justify-center h-full">
+                      <img 
+                        src={`/images/quote/${type.toLowerCase()}.png`} 
+                        alt={type} 
+                        className="mb-4" 
+                      />
+                      <p className="font-semibold">
+                        {type === 'Decoration' ? 'Décoration' : 'Rénovation'}
+                      </p>
+                      <div className="flex items-center justify-center mt-2">
+                        <div className={`relative w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                          formData.projectType.includes(type) 
+                            ? 'border-black' 
+                            : 'border-gray-400'
+                        }`}>
+                          {formData.projectType.includes(type) && (
+                            <Check className="h-6 w-6 text-white bg-black rounded-full p-0.5" />
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-                <div 
-                  className={`border-2 p-8 mx-2 cursor-pointer transition-all duration-200 ${formData.projectType === 'Renovation' ? 'border-black bg-gray-50' : 'border-gray-300 bg-gray-100'}`}
-                  style={{ height: '200px', width: '130px' }}
-                  onClick={() => setFormData({ ...formData, projectType: 'Renovation' })}
-                >
-                  <div className="flex flex-col items-center justify-center h-full">
-                    <img src="/images/quote/renovation.png" alt="Rénovation" className="mb-4" />
-                    <p className="font-semibold">Rénovation</p>
-                    <div className="flex items-center justify-center mt-2">
-                      <div className={`relative w-6 h-6 rounded-full border-2 flex items-center justify-center ${formData.projectType === 'Renovation' ? 'border-black' : 'border-gray-400'}`}>
-                        {formData.projectType === 'Renovation' && <Check className="h-6 w-6 text-white bg-black rounded-full p-0.5" />}
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                ))}
               </div>
               <div className="flex justify-center mt-8">
-                <Button onClick={handleNext} disabled={isNextButtonDisabled()} className="bg-black text-white">
+                <Button 
+                  onClick={handleNext} 
+                  disabled={isNextButtonDisabled()} 
+                  className="bg-black text-white"
+                >
                   Suivant
                 </Button>
               </div>
             </div>
           )}
 
-          {step === 2 && (
-            <div className="text-center">
-              <h3 className="text-xl font-semibold mb-6">Nombre de pieces</h3>
-              <div className="flex flex-col items-center mb-6">
-                {['1', '2', '3', '4+'].map((value) => (
-                  <div key={value} className="bg-gray-50 border border-gray-300 p-4 mb-4 w-80">
-                    <label className="flex items-center ">
-                      <div className={`relative w-6 h-6 rounded-full border-2 flex items-center justify-center ${formData.numberOfRooms === value ? 'border-black bg-gray-50' : 'border-gray-300 bg-gray-100'}`}>
-                        <input
-                          type="radio"
-                          name="numberOfRooms"
-                          value={value}
-                          onChange={handleChange}
-                          className="absolute opacity-0 cursor-pointer"
-                          required
-                        />
-                        {formData.numberOfRooms === value && <Check className="h-6 w-6 text-white bg-black rounded-full p-0.5" />}
-                      </div>
-                      <span className="ml-4">{value === '4+' ? '+4 pièces à décorer' : `${value} pièce${value === '1' ? '' : 's'} à décorer`}</span>
-                    </label>
-                  </div>
-                ))}
-              </div>
-              <div className="flex justify-between mt-8">
-                <Button onClick={handleBack}>Retour</Button>
-                <Button onClick={handleNext} disabled={isNextButtonDisabled()}>Suivant</Button>
-              </div>
+{step === 2 && (
+  <div className="text-center px-4 sm:px-0">
+    <h3 className="text-xl font-semibold mb-6">Nombre de pieces</h3>
+    <div className="flex flex-col items-center w-full mb-6">
+      {['1', '2', '3', '4+'].map((value) => (
+        <div 
+          key={value} 
+          className={`
+            p-4 mb-4 flex items-center transition-all duration-200
+            ${formData.numberOfRooms.includes(value)
+              ? 'border-[3px] border-black bg-gray-50'
+              : 'border border-gray-300 bg-gray-50'
+            }
+            rounded-sm cursor-pointer
+            w-full max-w-[566px] h-[60px]
+          `}
+          onClick={() => handleCheckboxChange('numberOfRooms', value)}
+        >
+          <div className="relative flex items-center w-full">
+            <input
+              type="checkbox"
+              id={`room-${value}`}
+              checked={formData.numberOfRooms.includes(value)}
+              onChange={() => {}}
+              className="absolute opacity-0 w-6 h-6 cursor-pointer"
+            />
+            <div className={`
+              w-6 h-6 rounded-full border-2 flex items-center justify-center
+              ${formData.numberOfRooms.includes(value) 
+                ? 'bg-black border-black'
+                : 'bg-white border-gray-300'
+              }
+            `}>
+              {formData.numberOfRooms.includes(value) && (
+                <Check className="h-4 w-4 text-white" />
+              )}
             </div>
-          )}
-
-          {step === 3 && (
-            <div className="text-center">
-              <h3 className="text-xl font-semibold mb-6">Type de pièces</h3>
-              <div className="flex flex-col items-center mb-6">
-                {['Cuisine', 'Salon', 'Chambre(s)', 'Bureau', 'Extérieur'].map((roomType) => (
-                  <div key={roomType} className="bg-gray-50 border border-gray-300 p-4 mb-4 w-80">
-                    <label className="flex items-center ">
-                      <div className={`relative w-6 h-6 rounded-full border-2 flex items-center justify-center ${formData.roomType === roomType ? 'border-black' : 'border-gray-400'}`}>
-                        <input
-                          type="radio"
-                          name="roomType"
-                          value={roomType}
-                          onChange={handleChange}
-                          className="absolute opacity-0 cursor-pointer"
-                          required
-                        />
-                        {formData.roomType === roomType && <Check className="h-6 w-6 text-white bg-black rounded-full p-0.5" />}
-                      </div>
-                      <span className="ml-3">{roomType}</span>
-                    </label>
-                  </div>
-                ))}
-              </div>
-              <div className="flex justify-between mt-8">
+            <label 
+              htmlFor={`room-${value}`} 
+              className="ml-4 cursor-pointer select-none whitespace-nowrap"
+            >
+              {value === '4+' ? '+4 pièces à décorer' : `${value} pièce${value === '1' ? '' : 's'} à décorer`}
+            </label>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div className="flex justify-between mt-8">
                 <Button onClick={handleBack}>Précédent</Button>
-                <Button onClick={handleNext} disabled={isNextButtonDisabled()}>Suivant</Button>
+                <Button onClick={handleNext} disabled={isNextButtonDisabled()}>
+                  Suivant
+                </Button>
               </div>
-            </div>
-          )}
+  </div>
+)}
 
+{step === 3 && (
+  <div className="text-center px-4 sm:px-0">
+    <h3 className="text-xl font-semibold mb-6">Type de pièces</h3>
+    <div className="flex flex-col items-center w-full mb-6">
+      {['Cuisine', 'Salon', 'Chambre(s)', 'Bureau', 'Extérieur'].map((roomType) => (
+        <div 
+          key={roomType} 
+          className={`
+            p-4 mb-4 flex items-center transition-all duration-200
+            ${formData.roomType.includes(roomType)
+              ? 'border-2 border-black bg-gray-50'
+              : 'border border-gray-300 bg-gray-50'
+            }
+            rounded-sm cursor-pointer
+            w-full max-w-[566px] h-[60px]
+          `}
+          onClick={() => handleCheckboxChange('roomType', roomType)}
+        >
+          <div className="relative flex items-center w-full">
+            <input
+              type="checkbox"
+              id={`type-${roomType}`}
+              checked={formData.roomType.includes(roomType)}
+              onChange={() => {}}
+              className="absolute opacity-0 w-6 h-6 cursor-pointer"
+            />
+            <div className={`
+              w-6 h-6 rounded-full border-2 flex items-center justify-center
+              ${formData.roomType.includes(roomType) 
+                ? 'bg-black border-black'
+                : 'bg-white border-gray-300'
+              }
+            `}>
+              {formData.roomType.includes(roomType) && (
+                <Check className="h-4 w-4 text-white" />
+              )}
+            </div>
+            <label 
+              htmlFor={`type-${roomType}`} 
+              className="ml-4 cursor-pointer select-none whitespace-nowrap"
+            >
+              {roomType}
+            </label>
+          </div>
+        </div>
+      ))}
+    </div>
+    <div className="flex justify-between mt-8">
+                <Button onClick={handleBack}>Précédent</Button>
+                <Button onClick={handleNext} disabled={isNextButtonDisabled()}>
+                  Suivant
+                </Button>
+              </div>
+  </div>
+)}
           {step === 4 && (
             <div className="text-center">
               <h3 className="text-xl font-semibold mb-6">Surface du bien</h3>
@@ -284,75 +370,99 @@ export default function QuickQuote() {
               </div>
               <div className="flex justify-between mt-8">
                 <Button onClick={handleBack}>Précédent</Button>
-                <Button onClick={handleNext} disabled={isNextButtonDisabled()}>Suivant</Button>
-              </div>
-            </div>
-          )}
-
-          {step === 5 && (
-            <div className="text-center">
-              <h3 className="text-xl font-semibold mb-6">Style de design</h3>
-              <div className="flex flex-col items-center mb-6">
-                {['Scandinave', 'Industriel', 'Vintage', 'Pop Art', 'Contemporain', 'Autre'].map((style) => (
-                  <div key={style} className="bg-gray-50 border border-gray-300 p-4 mb-4 w-80">
-                    <label className="flex items-center">
-                      <div className={`relative w-6 h-6 rounded-full border-2 flex items-center justify-center ${formData.designStyle === style ? 'border-black' : 'border-gray-400'}`}>
-                        <input
-                          type="radio"
-                          name="designStyle"
-                          value={style}
-                          onChange={handleChange}
-                          className="absolute opacity-0 cursor-pointer"
-                          required
-                        />
-                        {formData.designStyle === style && <Check className="h-6 w-6 text-white bg-black rounded-full p-0.5" />}
-                      </div>
-                      <span className="ml-3">{style}</span>
-                    </label>
-                  </div>
-                ))}
-              </div>
-              <div className="flex justify-between mt-8">
-                <Button onClick={handleBack}>Précédent</Button>
-                <Button onClick={handleNext} disabled={isNextButtonDisabled()}>Suivant</Button>
-              </div>
-            </div>
-          )}
-
-          {step === 6 && (
-            <div className="text-center">
-              <h3 className="text-xl font-semibold mb-6">Vos Coordonnés</h3>
-              <div className="grid grid-cols-2 gap-4 mb-6">
-                {['postalCode', 'firstName', 'email', 'phone'].map((field) => (
-                  <div key={field} className="mb-4 w-full">
-                    <label className="block text-center mb-4 text-3xl text-neutral-600 font-bold">
-                      {field === 'postalCode' ? 'Code postal' : 
-                       field === 'firstName' ? 'Prénom' : 
-                       field === 'email' ? 'E-mail' : 'Phone/Mobile'}
-                    </label>
-                    <input
-                      type={field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text'}
-                      name={field}
-                      placeholder={field === 'postalCode' ? 'Code Postal' : 
-                                  field === 'firstName' ? 'Prénom' : 
-                                  field === 'email' ? 'Email Address' : 'Numéro de portable'}
-                      value={formData[field as keyof FormData]}
-                      onChange={handleChange}
-                      className="w-full border border-neutral-800 p-2 rounded text-sm text-center"
-                      style={{ width: '100%', maxWidth: '400px' }}
-                      required
-                    />
-                  </div>
-                ))}
-              </div>
-              <div className="flex justify-between mt-8">
-                <Button onClick={handleBack}>Précédent</Button>
                 <Button onClick={handleNext} disabled={isNextButtonDisabled()}>
-                  {isSubmitting ? 'Envoi en cours...' : 'Envoyer la demande'}
+                  Suivant
                 </Button>
               </div>
             </div>
           )}
+
+{step === 5 && (
+  <div className="text-center">
+    <h3 className="text-xl font-semibold mb-6">Style de design</h3>
+    <div className="flex flex-col items-center mb-6">
+      {['Scandinave', 'Industriel', 'Vintage', 'Pop Art', 'Contemporain', 'Autre'].map((style) => (
+        <div 
+          key={style} 
+          className={`p-4 mb-4 flex items-center transition-all duration-200 ${
+            formData.designStyle.includes(style)
+              ? 'border-[3px] border-black bg-gray-50'
+              : 'border border-gray-300 bg-gray-50'
+          } rounded-sm cursor-pointer w-full md:w-[566px] h-[50px]`}
+          onClick={() => handleCheckboxChange('designStyle', style)}
+        >
+          <div className="relative flex items-center">
+            <input
+              type="checkbox"
+              id={`style-${style}`}
+              checked={formData.designStyle.includes(style)}
+              onChange={() => {}}
+              className="absolute opacity-0 w-6 h-6 cursor-pointer"
+            />
+            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+              formData.designStyle.includes(style) 
+                ? 'bg-black border-black'
+                : 'bg-white border-gray-300'
+            }`}>
+              {formData.designStyle.includes(style) && (
+                <Check className="h-4 w-4 text-white stroke-[3px]" />
+              )}
+            </div>
+            <label 
+              htmlFor={`style-${style}`} 
+              className="ml-4 cursor-pointer select-none text-gray-800"
+            >
+              {style}
+            </label>
+          </div>
+        </div>
+      ))}
+    </div>
+    
+      <div className="flex justify-between mt-8">
+                <Button onClick={handleBack}>Précédent</Button>
+                <Button onClick={handleNext} disabled={isNextButtonDisabled()}>
+                  Suivant
+                </Button>
+              </div>
+    
+  </div>
+)}
+
+{step === 6 && (
+  <div className="text-center px-4 sm:px-0">
+    <h3 className="text-xl font-semibold mb-6">Vos Coordonnés</h3>
+    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+      {['postalCode', 'firstName', 'email', 'phone'].map((field) => (
+        <div key={field} className="mb-4 w-full">
+          <label className="block text-center mb-2 sm:mb-4 text-lg sm:text-3xl text-neutral-600 font-bold">
+            {field === 'postalCode' ? 'Code postal' : 
+             field === 'firstName' ? 'Prénom' : 
+             field === 'email' ? 'E-mail' : 'Téléphone'}
+          </label>
+          <input
+            type={field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text'}
+            name={field}
+            placeholder={field === 'postalCode' ? 'Code Postal' : 
+                        field === 'firstName' ? 'Prénom' : 
+                        field === 'email' ? 'Email' : 'Numéro de portable'}
+            value={formData[field as keyof FormData]}
+            onChange={handleChange}
+            className="w-full border border-neutral-800 p-2 rounded text-sm text-center mx-auto"
+            style={{ maxWidth: '400px' }}
+            required
+          />
+        </div>
+      ))}
+    </div>
+    <div className="flex justify-between mt-8">
+                <Button onClick={handleBack}>Précédent</Button>
+                <Button onClick={handleNext} disabled={isNextButtonDisabled()}>
+                  {isSubmitting ? 'Envoi en cours...' : 'Suivant'}
+                </Button>
+              </div>
+  </div>
+)}
 
           {step === 7 && (
             <div className="text-center">

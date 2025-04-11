@@ -87,57 +87,91 @@ export async function POST(request: Request) {
     } else if (formType === 'contact') {
       subject = `Nouveau message de contact: ${formData.subject || 'Sans sujet'}`;
       htmlContent = `
-        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #eaeaea; border-radius: 5px; background: #f9f9f9;">
-          <div style="background: #000; padding: 20px; text-align: center; border-radius: 5px 5px 0 0;">
-            <h2 style="color: #fff; margin: 0;">Nouveau message de contact</h2>
-          </div>
-          
-          <div style="padding: 20px; background: #fff; border-radius: 0 0 5px 5px;">
-            <div style="display: flex; align-items: center; margin-bottom: 20px;">
-              <div style="width: 80px; height: 80px; background-color: #f0f0f0; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 20px;">
-                <span style="font-size: 30px; color: #555;">${formData.name ? formData.name.charAt(0).toUpperCase() : '?'}</span>
-              </div>
-              <div>
-                <h3 style="margin: 0 0 5px 0; color: #333;">${formData.name || 'Anonyme'}</h3>
-                <p style="margin: 0; color: #666;">${formData.email || 'Email non fourni'}</p>
-              </div>
-            </div>
-    
-            <table style="width: 100%; border-collapse: collapse; margin-bottom: 20px;">
-              <tr>
-                <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold; width: 30%;">Sujet:</td>
-                <td style="padding: 10px 0; border-bottom: 1px solid #eee;">${formData.subject || 'Non spécifié'}</td>
-              </tr>
-              <tr>
-                <td style="padding: 10px 0; font-weight: bold;">Date:</td>
-                <td style="padding: 10px 0;">${new Date().toLocaleDateString('fr-FR', { 
-                  weekday: 'long', 
-                  year: 'numeric', 
-                  month: 'long', 
-                  day: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit'
-                })}</td>
-              </tr>
-            </table>
-    
-            <div style="background: #f8f8f8; padding: 15px; border-radius: 5px; border-left: 3px solid #ddd;">
-              <h4 style="margin-top: 0; color: #444;">Message:</h4>
-              <p style="margin: 0; white-space: pre-line; line-height: 1.5;">${formData.message || 'Aucun message fourni'}</p>
-            </div>
-    
-            <div style="margin-top: 30px; padding-top: 15px; border-top: 1px solid #eee; text-align: center;">
-              <p style="margin: 0; font-size: 12px; color: #777;">
-                Ce message a été envoyé via le formulaire de contact de votre site web.
-              </p>
-              <p style="margin: 5px 0 0 0; font-size: 12px; color: #777;">
-                <a href="mailto:${formData.email || ''}" style="color: #555; text-decoration: none;">Répondre à ce message</a>
-              </p>
-            </div>
-          </div>
+        <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
+          <table width="100%" cellpadding="0" cellspacing="0" style="background: #f9f9f9; border: 1px solid #eaeaea; border-radius: 5px;">
+            <!-- Header -->
+            <tr>
+              <td style="background: #000; padding: 20px; text-align: center; border-radius: 5px 5px 0 0;">
+                <h2 style="color: #fff; margin: 0;">Nouveau message de contact</h2>
+              </td>
+            </tr>
+            
+            <!-- Sender Info -->
+            <tr>
+              <td style="padding: 20px; background: #fff;">
+                <table width="100%" cellpadding="0" cellspacing="0">
+                  
+                  <!-- Subject and Date -->
+                  <tr>
+                    <td>
+                      <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 20px;">
+                      <tr>
+                          <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold; width: 30%;">Nom</td>
+                          <td style="padding: 10px 0; border-bottom: 1px solid #eee;">${formData.name || 'Anonyme'}</td>
+                        </tr>
+                        <tr>
+                          <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold; width: 30%;">Mail</td>
+                          <td style="padding: 10px 0; border-bottom: 1px solid #eee;">${formData.email || 'Email non fourni'}</td>
+                        </tr>
+                        <tr>
+                          <td style="padding: 10px 0; border-bottom: 1px solid #eee; font-weight: bold; width: 30%;">Sujet:</td>
+                          <td style="padding: 10px 0; border-bottom: 1px solid #eee;">${formData.subject || 'Non spécifié'}</td>
+                        </tr>
+                        <tr>
+                          <td style="padding: 10px 0; font-weight: bold;">Date:</td>
+                          <td style="padding: 10px 0;">
+                            ${new Date().toLocaleDateString('fr-FR', { 
+                              weekday: 'long', 
+                              year: 'numeric', 
+                              month: 'long', 
+                              day: 'numeric',
+                              hour: '2-digit',
+                              minute: '2-digit'
+                            })}
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  
+                  <!-- Message Content -->
+                  <tr>
+                    <td>
+                      <table width="100%" cellpadding="0" cellspacing="0" style="background: #f8f8f8; border-radius: 5px; border-left: 3px solid #ddd;">
+                        <tr>
+                          <td style="padding: 15px;">
+                            <h4 style="margin-top: 0; color: #444;">Message:</h4>
+                            <p style="margin: 0; white-space: pre-line; line-height: 1.5;">${formData.message || 'Aucun message fourni'}</p>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  
+                  <!-- Footer -->
+                  <tr>
+                    <td>
+                      <table width="100%" cellpadding="0" cellspacing="0" style="margin-top: 30px; padding-top: 15px; border-top: 1px solid #eee;">
+                        <tr>
+                          <td style="text-align: center;">
+                            <p style="margin: 0; font-size: 12px; color: #777;">
+                              Ce message a été envoyé via le formulaire de contact de votre site web.
+                            </p>
+                            <p style="margin: 5px 0 0 0; font-size: 12px; color: #777;">
+                              <a href="mailto:${formData.email || ''}" style="color: #555; text-decoration: none;">Répondre à ce message</a>
+                            </p>
+                          </td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                </table>
+              </td>
+            </tr>
+          </table>
         </div>
       `;
-    }else {
+    } else {
       return NextResponse.json({ error: 'Invalid form type' }, { status: 400 });
     }
 

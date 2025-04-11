@@ -33,7 +33,7 @@ export default function Contact() {
     setSubmitStatus(null);
 
     try {
-      const response = await fetch('/api/send-email', {
+      const emailresponse = await fetch('/api/send-email', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -44,7 +44,17 @@ export default function Contact() {
         }),
       });
 
-      if (response.ok) {
+
+      const sheetresponse = fetch('https://script.google.com/macros/s/AKfycbzlDOfmbVG5urrW-1yvWme1qbbtVEjO9tKMS6fWVupC-q19fSVQMijSLtB3B7UgsjVEvA/exec',{
+        method: 'POST',
+        body: JSON.stringify({
+          formData,
+          formType: 'contact'
+        }),
+      });
+      
+
+      if (emailresponse.ok) {
         setSubmitStatus('success');
         setFormData({
           name: '',
@@ -182,7 +192,7 @@ export default function Contact() {
             </form>
           </div>
 
-          <div className="flex-1 w-full h-64 lg:h-auto lg:min-h-[400px]">
+          <div className="flex-1 w-full h-70 lg:h-auto lg:min-h-[400px]">
             <div className="w-full h-full rounded-lg overflow-hidden shadow-md">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10494.116591379776!2d2.245637079733847!3d48.88625196862207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e6656373e396b5%3A0xdc39759cf532b397!2sNeuilly-sur-Seine!5e0!3m2!1sfr!2sfr!4v1721041645435!5m2!1sfr!2sfr"

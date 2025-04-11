@@ -22,7 +22,7 @@ export default function Header() {
   useEffect(() => {
     const handleScroll = () => {
       const scrollY = window.scrollY;
-      const newOpacity = Math.max(0.5, 1 - scrollY / 300); // Adjust the divisor for desired effect
+      const newOpacity = Math.max(0.5, 1 - scrollY / 300);
       setOpacity(newOpacity);
     };
 
@@ -33,38 +33,47 @@ export default function Header() {
   }, []);
 
   return (
-    <header className={`py-4 fixed w-full top-0 z-50 shadow-sm transition-opacity duration-300 bg-black`} style={{ opacity }}>
-      <div className="container-custom flex items-center justify-between">
+    <header 
+      className={`py-6 fixed w-full top-0 z-50 shadow-sm transition-opacity duration-300 bg-black`} 
+      style={{ opacity }}
+    >
+      <div className="max-w-[1800px] mx-auto px-8 xl:px-16 flex items-center justify-between h-full gap-12 xl:gap-24">
+        {/* Logo with increased spacing */}
         <div className="flex-shrink-0">
-          <Link href="/" className="flex items-center">
+          <Link href="/" className="flex items-center h-full">
             <Image 
               src="/logo/logov2-1.svg" 
               alt="Logo" 
-              width={80} // Adjusted width for smaller screens
-              height={40} // Adjusted height for smaller screens
-              className="md:w-24 md:h-12" // Responsive classes for larger screens
+              width={120}
+              height={60}
+              className="md:w-40 md:h-20"
             />
           </Link>
         </div>
 
-        <nav className="hidden lg:flex items-center justify-center">
-          {navItems.map((item) => (
-            <Link
-              key={item.label}
-              href={item.href}
-              className="text-white hover:text-gray-300 transition-colors px-4"
-            >
-              {item.label}
-            </Link>
-          ))}
+        {/* Navigation with increased spacing */}
+        <nav className="hidden lg:flex items-center justify-center h-full flex-1">
+          <div className="flex items-center h-full gap-16 xl:gap-24">
+            {navItems.map((item) => (
+              <Link
+                key={item.label}
+                href={item.href}
+                className="text-white hover:text-gray-300 transition-colors py-1 text-lg xl:text-xl"
+              >
+                {item.label}
+              </Link>
+            ))}
+          </div>
         </nav>
 
+        {/* Button with increased spacing */}
         <div className="hidden lg:block flex-shrink-0">
-          <Button className="bg-white text-black hover:bg-slate-300 hover:text-black rounded-none">
+          <Button className="bg-white text-black hover:bg-slate-300 hover:text-black rounded-none h-14 px-10 text-lg xl:text-xl">
             <Link href="#quickquote">Devis Gratuit</Link>
           </Button>
         </div>
 
+        {/* Mobile menu remains unchanged */}
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
             <Button 
@@ -83,14 +92,14 @@ export default function Header() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className="text-gray-600 hover:text-black transition-colors py-2 border-b border-gray-100"
+                  className="text-gray-600 hover:text-black transition-colors py-3 border-b border-gray-100 text-lg"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.label}
                 </Link>
               ))}
-              <Button className="bg-black text-white hover:bg-gray-800 mt-4">
-              <Link href="#quickquote">Devis Gratuit</Link>
+              <Button className="bg-black text-white hover:bg-gray-800 mt-6 py-4 text-lg">
+                <Link href="#quickquote">Devis Gratuit</Link>
               </Button>
             </nav>
           </SheetContent>

@@ -88,54 +88,54 @@ export default function Testimonials() {
   ];
 
   return (
-    <section className="py-16 bg-white">
-      <div className="container mx-auto px-4">
-        <h2 className="mb-12 text-5xl font-bold text-left text-gray-900">Avis</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+    <section className="py-12 bg-white">
+      <div className="container mx-auto px-4 max-w-10xl">
+        <h2 className="mb-8 text-5xl font-bold text-left text-gray-900">Avis</h2>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {displayedTestimonials.map((testimonial) => (
             <div 
               key={testimonial.id} 
               className="relative transition-all duration-500 ease-in-out"
             >
               {/* Large speech bubble with strong shadow */}
-              <div className="relative bg-gray-50 rounded-xl p-8 text-gray-700 shadow-2xl min-h-[300px]">
-                {/* Decorative quotation marks */}
-                <div className="absolute top-6 left-6 text-6xl text-gray-200 font-serif">"</div>
+              <div className="relative bg-gray-50 p-6 text-gray-700 shadow-lg min-h-[280px]">
+                {/* Decorative quotation marks - larger */}
+                <div className="absolute top-4 left-4 text-7xl text-gray-200 font-serif leading-none">"</div>
                 
                 {/* Star rating - centered */}
-                <div className="flex justify-center mb-4 text-yellow-400">
+                <div className="flex justify-center mb-3 text-yellow-400">
                   {Array.from({ length: testimonial.rating || 5 }).map((_, i) => (
-                    <Star key={i} className="h-6 w-6 fill-current mx-1" />
+                    <Star key={i} className="h-5 w-5 fill-current mx-0.5" />
                   ))}
                 </div>
                 
-                {/* Testimonial text */}
-                <p className="text-lg text-gray-600 italic relative z-10 px-4">
+                {/* Testimonial text - smaller */}
+                <p className="text-base text-gray-600 italic relative z-10 px-4">
                   {testimonial.text}
                 </p>
                 
                 {/* Large speech bubble arrow */}
-                <div className="absolute -bottom-5 left-8 w-0 h-0 
-                  border-l-[20px] border-l-transparent
-                  border-r-[20px] border-r-transparent
-                  border-t-[30px] border-t-gray-50
-                  filter drop-shadow-lg"></div>
+                <div className="absolute -bottom-4 left-6 w-0 h-0 
+                  border-l-[16px] border-l-transparent
+                  border-r-[16px] border-r-transparent
+                  border-t-[24px] border-t-gray-50
+                  filter drop-shadow-md"></div>
               </div>
 
               {/* Author info */}
-              <div className="flex items-center mt-10 ml-4">
-                <div className="relative h-20 w-20 rounded-full border-4 border-white overflow-hidden shadow-lg">
+              <div className="flex items-center mt-8 ml-3">
+                <div className="relative h-16 w-16 rounded-full border-3 border-white overflow-hidden shadow-md">
                   <Image
                     src={testimonial.image}
                     alt={testimonial.name}
                     fill
                     className="object-cover"
-                    sizes="80px"
+                    sizes="64px"
                   />
                 </div>
-                <div className="ml-4">
-                  <h5 className="text-xl font-bold text-gray-900">{testimonial.name}</h5>
-                  <p className="text-md text-gray-500">{testimonial.date}</p>
+                <div className="ml-3">
+                  <h5 className="text-lg font-bold text-gray-900">{testimonial.name}</h5>
+                  <p className="text-sm text-gray-500">{testimonial.date}</p>
                 </div>
               </div>
             </div>

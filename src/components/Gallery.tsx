@@ -307,14 +307,14 @@ export default function Gallery() {
   return (
     <section id="portfolio" className="py-16">
       <div className="container-custom">
-        <h2 className="text-center mb-8">Nos dernières rénovations</h2>
+        <h2 className="text-center text-5xl mb-14">Nos dernières rénovations</h2>
 
-        <div className="flex flex-wrap justify-center gap-2 mb-10">
+        <div className="flex flex-wrap justify-center gap-2 mb-8">
           {categories.map((category) => (
             <Button
               key={category.id}
               variant={selectedCategory === category.id ? "default" : "outline"}
-              className={`px-4 py-2 ${selectedCategory === category.id ? 'bg-black text-white' : 'text-gray-700'}`}
+              className={`px-4 py-2 rounded-none ${selectedCategory === category.id ? 'bg-black text-white' : 'text-gray-700'}`}
               onClick={() => setSelectedCategory(category.id)}
             >
               {category.label}

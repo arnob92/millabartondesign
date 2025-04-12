@@ -4,7 +4,7 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu } from 'lucide-react';
+import { Menu ,AlignJustify} from 'lucide-react';
 import Image from 'next/image';
 
 export default function Header() {
@@ -38,7 +38,6 @@ export default function Header() {
       style={{ opacity }}
     >
       <div className="max-w-[1800px] mx-auto px-8 xl:px-16 flex items-center justify-between h-full gap-12 xl:gap-24">
-        {/* Logo with increased spacing */}
         <div className="flex-shrink-0">
           <Link href="/" className="flex items-center h-full">
             <Image 
@@ -51,7 +50,6 @@ export default function Header() {
           </Link>
         </div>
 
-        {/* Navigation with increased spacing */}
         <nav className="hidden lg:flex items-center justify-center h-full flex-1">
           <div className="flex items-center h-full gap-16 xl:gap-24">
             {navItems.map((item) => (
@@ -66,23 +64,20 @@ export default function Header() {
           </div>
         </nav>
 
-        {/* Button with increased spacing */}
         <div className="hidden lg:block flex-shrink-0">
-          <Button className="bg-white text-black hover:bg-slate-300 hover:text-black rounded-none h-14 px-10 text-lg xl:text-xl">
+          <Button className= "text-black bg-white hover:bg-slate-300 hover:text-black rounded-none h-14 px-10 text-3xl xl:text-xl">
             <Link href="#quickquote">Devis Gratuit</Link>
           </Button>
         </div>
 
-        {/* Mobile menu remains unchanged */}
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
             <Button 
-              variant="ghost" 
-              size="icon" 
-              className="lg:hidden bg-white text-black p-4"
+              variant="ghost"
+              className="lg:hidden text-white bg-black p-4 rounded-none transform scale-150 origin-center"
               onClick={() => setIsOpen(!isOpen)}
-            >
-              <Menu className="h-6 w-6" />
+            >              
+            <AlignJustify className="h-12 w-12" />
               <span className="sr-only">Toggle menu</span>
             </Button>
           </SheetTrigger>

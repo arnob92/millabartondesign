@@ -1,4 +1,5 @@
 'use client';
+import { Minus, Plus } from 'lucide-react';
 
 import {
   Accordion,
@@ -42,26 +43,36 @@ export default function FAQ() {
   ];
 
   return (
-    <section id="faq" className="py-12">
-      <div className="container mx-auto px-4 max-w-3xl">
-        <h2 className="text-5xl font-bold mb-8">FAQ</h2>
-        
-        <Accordion type="single" collapsible className="w-full space-y-2">
-          {faqItems.map((item) => (
-            <AccordionItem 
-              key={item.id} 
-              value={item.id} 
-              className="border-b border-gray-200"
-            >
-              <AccordionTrigger className="py-4 hover:no-underline text-left bg-black text-white px-4">
-                <h3 className="font-semibold text-base">{item.question}</h3>
-              </AccordionTrigger>
-              <AccordionContent className="py-4 text-gray-700 px-4">
-                {item.answer}
-              </AccordionContent>
-            </AccordionItem>
-          ))}
-        </Accordion>
+    <section id="faq" className="py-12 w-full">
+      <div className="w-full px-4">
+        <div className="mx-auto w-full lg:w-4/5 xl:w-3/4 2xl:w-2/3">
+          <h2 className="text-5xl font-bold mb-8">FAQ</h2>
+          
+          <div className="w-full">
+            <Accordion type="single" collapsible className="w-full space-y-2">
+              {faqItems.map((item) => (
+                <AccordionItem 
+                  key={item.id} 
+                  value={item.id} 
+                  className="border-b border-gray-200 w-full"
+                >
+                  <AccordionTrigger className="group py-4 hover:no-underline text-left bg-black text-white w-full px-6 flex justify-between items-center">
+                    <h3 className="font-semibold text-base text-left flex-grow pr-4">
+                      {item.question}
+                    </h3>
+                    <div className="flex-shrink-0 ml-4">
+                      <Plus className="h-5 w-5 group-data-[state=open]:hidden" />
+                      <Minus className="h-5 w-5 hidden group-data-[state=open]:block" />
+                    </div>
+                  </AccordionTrigger>
+                  <AccordionContent className="py-4 text-gray-700 w-full px-6">
+                    {item.answer}
+                  </AccordionContent>
+                </AccordionItem>
+              ))}
+            </Accordion>
+          </div>
+        </div>
       </div>
     </section>
   );

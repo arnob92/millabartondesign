@@ -265,6 +265,11 @@ export default function Gallery() {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [filteredProjects, setFilteredProjects] = useState(projects);
   const [isFiltering, setIsFiltering] = useState(false);
+  const [selectedImage, setSelectedImage] = useState<null | {
+    image: string;
+    title: string;
+    category:string;
+  }>(null);
 
   const shuffleArray = (array: any[]) => {
     return array.sort(() => Math.random() - 0.5);
@@ -288,6 +293,16 @@ export default function Gallery() {
 
     return () => clearTimeout(timer);
   }, [selectedCategory]);
+
+  const openModal = (image: string, title: string, category:string) => {
+    setSelectedImage({ image, title, category });
+    document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+  };
+
+  const closeModal = () => {
+    setSelectedImage(null);
+    document.body.style.overflow = 'auto'; // Re-enable scrolling
+  };
 
   return (
     <section id="portfolio" className="py-16">
@@ -313,7 +328,11 @@ export default function Gallery() {
           columnClassName="my-masonry-grid_column"
         >
           {filteredProjects.map((project) => (
-            <div key={project.id} className="group overflow-hidden mb-4">
+            <div 
+              key={project.id} 
+              className="group overflow-hidden mb-4 cursor-pointer"
+              onClick={() => openModal(project.image, project.title, project.category)}
+            >
               <img
                 src={project.image}
                 alt={project.title}
@@ -335,6 +354,34 @@ export default function Gallery() {
           </p>
         )}
       </div>
+
+      {/* Modal */}
+      {selectedImage && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center bg-white bg-opacity-70 p-4"
+          onClick={closeModal}
+        >
+          <div 
+            className="relative max-w-6xl w-full max-h-[90vh]"
+            onClick={(e) => e.stopPropagation()} // Prevent click from bubbling to parent
+          >
+            <button 
+              className="absolute top-0 right-0 text-black text-5xl hover:text-gray-700"
+              onClick={closeModal}
+            >
+              &times;
+            </button>
+            <div className="overflow-hidden rounded-none">
+              <img
+                src={selectedImage.image}
+                alt={selectedImage.title}
+                className="w-full h-auto max-h-[80vh] object-contain"
+              />
+              
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 }

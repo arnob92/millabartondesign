@@ -129,21 +129,21 @@ export default function QuickQuote() {
       <div className="container-custom">
         <h2 className="text-center mb-8">Devis en moins d'une minute</h2>
 
-        <div className="mb-12 relative">
+        <div className="mb-8 relative"> {/* Reduced margin-bottom */}
   {/* Progress line container */}
-  <div className="absolute top-6 left-4 right-4 h-0.5 bg-gray-300 z-0 md:top-8"></div>
+  <div className="absolute top-5 left-3 right-3 h-0.5 bg-gray-300 z-0 md:top-6"></div> {/* Smaller positioning */}
   
-  {/* Progress indicator */}
+  {/* Progress indicator - simplified calculation */}
   <div 
-    className="absolute top-6 left-4 h-0.5 bg-black z-0 transition-all duration-300 md:top-8"
+    className="absolute top-5 left-3 h-0.5 bg-black z-0 transition-all duration-300 md:top-6"
     style={{ 
-      width: `calc(${((step - 1) / 7) * 100}% - 2.24rem)`,
-      maxWidth: 'calc(100% - 2rem)'
+      width: `${(step / 7) * 100}%`,
+      maxWidth: 'calc(100% - 1.5rem)' /* Accounts for padding */
     }}
   ></div>
   
   {/* Steps container */}
-  <div className="relative z-10 overflow-x-auto whitespace-nowrap px-4">
+  <div className="relative z-10 overflow-x-auto whitespace-nowrap px-3"> {/* Reduced padding */}
     <div className="inline-flex w-full justify-between">
       {[1, 2, 3, 4, 5, 6, 7].map((stepNumber) => (
         <button
@@ -163,8 +163,8 @@ export default function QuickQuote() {
           <div 
             className={`
               flex items-center justify-center 
-              w-10 h-10 rounded-full  // Default mobile size
-              md:w-14 md:h-14 md:text-xl  // Larger on desktop
+              w-8 h-8 rounded-full  /* Smaller circles */
+              md:w-10 md:h-10 md:text-base  /* Adjusted desktop size */
               font-bold 
               ${stepNumber <= step ? 'bg-black text-white' : 'bg-gray-200 text-gray-400'}
             `}
@@ -172,7 +172,7 @@ export default function QuickQuote() {
             {stepNumber}
           </div>
           {/* Step label - hidden on small screens */}
-          <div className="mt-2 lg:mt-3 text-center text-xs lg:text-sm font-medium px-1 hidden lg:block">
+          <div className="mt-1 lg:mt-2 text-center text-sm px-1 hidden lg:block"> {/* Smaller spacing */}
             {stepLabels[stepNumber - 1]}
           </div>
         </button>
@@ -231,7 +231,7 @@ export default function QuickQuote() {
                 <Button 
                   onClick={handleNext} 
                   disabled={isNextButtonDisabled()} 
-                  className="bg-black text-white"
+                  className="bg-black text-white rounded-none md:h-14 md:w-40"
                 >
                   Suivant
                 </Button>
@@ -287,8 +287,8 @@ export default function QuickQuote() {
       ))}
     </div>
     <div className="flex justify-between mt-8">
-                <Button onClick={handleBack}>Précédent</Button>
-                <Button onClick={handleNext} disabled={isNextButtonDisabled()}>
+                <Button className="bg-black text-white rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
+                <Button className="rounded-none md:h-14 md:w-40" onClick={handleNext} disabled={isNextButtonDisabled()}>
                   Suivant
                 </Button>
               </div>
@@ -343,8 +343,8 @@ export default function QuickQuote() {
       ))}
     </div>
     <div className="flex justify-between mt-8">
-                <Button onClick={handleBack}>Précédent</Button>
-                <Button onClick={handleNext} disabled={isNextButtonDisabled()}>
+                <Button className="rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
+                <Button className="rounded-none md:h-14 md:w-40" onClick={handleNext} disabled={isNextButtonDisabled()}>
                   Suivant
                 </Button>
               </div>
@@ -369,8 +369,8 @@ export default function QuickQuote() {
                 />
               </div>
               <div className="flex justify-between mt-8">
-                <Button onClick={handleBack}>Précédent</Button>
-                <Button onClick={handleNext} disabled={isNextButtonDisabled()}>
+                <Button className="rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
+                <Button className="rounded-none md:h-14 md:w-40" onClick={handleNext} disabled={isNextButtonDisabled()}>
                   Suivant
                 </Button>
               </div>
@@ -420,8 +420,8 @@ export default function QuickQuote() {
     </div>
     
       <div className="flex justify-between mt-8">
-                <Button onClick={handleBack}>Précédent</Button>
-                <Button onClick={handleNext} disabled={isNextButtonDisabled()}>
+                <Button className="rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
+                <Button className="rounded-none md:h-14 md:w-40" onClick={handleNext} disabled={isNextButtonDisabled()}>
                   Suivant
                 </Button>
               </div>
@@ -456,8 +456,8 @@ export default function QuickQuote() {
       ))}
     </div>
     <div className="flex justify-between mt-8">
-                <Button onClick={handleBack}>Précédent</Button>
-                <Button onClick={handleNext} disabled={isNextButtonDisabled()}>
+                <Button className="rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
+                <Button className="rounded-none md:h-14 md:w-40" onClick={handleNext} disabled={isNextButtonDisabled()}>
                   {isSubmitting ? 'Envoi en cours...' : 'Suivant'}
                 </Button>
               </div>
@@ -476,7 +476,7 @@ export default function QuickQuote() {
               <p className="mb-4">
                 En attendant, n'hésitez pas à nous contacter pour toute question ou information complémentaire.
               </p>
-              <Button onClick={() => window.location.href = '/'} className="bg-black text-white">
+              <Button onClick={() => window.location.href = '/'} className="bg-black text-white md:h-14 md:w-40 rounded-none">
                 Retourner à l'accueil
               </Button>
             </div>

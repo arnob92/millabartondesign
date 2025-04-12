@@ -89,7 +89,7 @@ export default function Testimonials() {
 
   return (
     <section className="py-12 bg-white">
-      <div className="container mx-auto px-4 max-w-10xl">
+      <div className="container mx-auto px-4 max-w-7xl">
         <h2 className="mb-8 text-5xl font-bold text-left text-gray-900">Avis</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {displayedTestimonials.map((testimonial) => (

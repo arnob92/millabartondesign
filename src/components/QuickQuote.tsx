@@ -129,53 +129,48 @@ export default function QuickQuote() {
       <div className="container-custom">
         <h2 className="text-center mb-8">Devis en moins d'une minute</h2>
 
-        <div className="mb-8 relative"> {/* Reduced margin-bottom */}
-  {/* Progress line container */}
-  <div className="absolute top-5 left-3 right-3 h-0.5 bg-gray-300 z-0 md:top-6"></div> {/* Smaller positioning */}
+        <div className="mb-12 relative w-full flex flex-col items-center">
+  {/* Progress track - absolutely centered */}
+  <div className="absolute top-6 left-0 right-0 h-0.5 bg-gray-300 z-0 md:top-8 mx-auto" style={{ width: '80%' }}></div>
   
-  {/* Progress indicator - simplified calculation */}
+  {/* Progress indicator - centered with perfect math */}
   <div 
-    className="absolute top-5 left-3 h-0.5 bg-black z-0 transition-all duration-300 md:top-6"
+    className="absolute top-6 h-0.5 bg-black z-10 transition-all duration-300 md:top-8"
     style={{ 
-      width: `${(step / 7) * 100}%`,
-      maxWidth: 'calc(100% - 1.5rem)' /* Accounts for padding */
+      width: `${(step / 7) * 80}%`,
+      left: '10%', // (100% - 80%) / 2
+      right: 'auto'
     }}
   ></div>
   
-  {/* Steps container */}
-  <div className="relative z-10 overflow-x-auto whitespace-nowrap px-3"> {/* Reduced padding */}
-    <div className="inline-flex w-full justify-between">
+  {/* Steps container - perfectly centered */}
+  <div className="relative z-20 w-full flex justify-center">
+    <div className="flex justify-between" style={{ width: '80%' }}>
       {[1, 2, 3, 4, 5, 6, 7].map((stepNumber) => (
-        <button
-          key={stepNumber}
-          type="button"
-          onClick={() => {
-            if (stepNumber <= step || stepNumber === 7) {
-              setStep(stepNumber);
-            }
-          }}
-          className={`inline-flex flex-col items-center ${stepNumber > step && stepNumber !== 7 ? 'cursor-default' : 'cursor-pointer'}`}
-          style={{ 
-            minWidth: `${100 / 7}%`,
-            width: `${100 / 7}%`
-          }}
+        <div 
+          key={stepNumber} 
+          className="flex flex-col items-center relative"
+          style={{ width: `${100 / 7}%` }}
         >
-          <div 
+          {/* Step circle */}
+          <button
+            type="button"
+            onClick={() => stepNumber <= step && setStep(stepNumber)}
             className={`
-              flex items-center justify-center 
-              w-8 h-8 rounded-full  /* Smaller circles */
-              md:w-10 md:h-10 md:text-base  /* Adjusted desktop size */
-              font-bold 
+              w-10 h-10 rounded-full flex items-center justify-center
+              md:w-12 md:h-12 font-bold relative z-10
               ${stepNumber <= step ? 'bg-black text-white' : 'bg-gray-200 text-gray-400'}
+              ${stepNumber <= step ? 'cursor-pointer' : 'cursor-default'}
             `}
           >
             {stepNumber}
-          </div>
-          {/* Step label - hidden on small screens */}
-          <div className="mt-1 lg:mt-2 text-center text-sm px-1 hidden lg:block"> {/* Smaller spacing */}
+          </button>
+          
+          {/* Step label */}
+          <div className="mt-2 text-center text-xs lg:text-sm font-medium hidden lg:block">
             {stepLabels[stepNumber - 1]}
           </div>
-        </button>
+        </div>
       ))}
     </div>
   </div>

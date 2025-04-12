@@ -10,7 +10,7 @@ export default function HeroSection() {
       <div className="flex flex-col md:flex-row">
         <div className="w-full h-[350px] md:h-[600px] relative order-1 md:order-2">
           <Image 
-            src="https://images.unsplash.com/photo-1615873968403-89e068629265?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1932&q=80"
+            src="/images/hero/hero.webp"
             alt="Interior design showcase"
             fill
             className="object-cover"

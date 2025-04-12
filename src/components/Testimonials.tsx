@@ -35,7 +35,7 @@ const testimonials = [
     text: "Nous sommes très reconnaissants d'avoir trouvé Mila. Ce fut un réel plaisir de travailler avec elle. Nous avons une petite maison avec un plan d'étage difficile. Elle as su s'organiser avec les difficultes de notre maison et la rendre chaleureuse, sommes des personnes âgées qui vivaient avec beaucoup de désordre et des pièces qui ne nous convenaient pas, jusqua ce que Mila nous aide a tout reorganiser.",
     rating: 5,
     date:   '16 February 2025',
-    image: 'images/avatar/laurent.png'
+    image: '/images/avatar/laurent.png'
   },
   {
     id: 'testimonial5',
@@ -43,7 +43,7 @@ const testimonials = [
     text: "Après des expériences décevantes avec deux autres entreprises de décoration d'intérieur, j'ai appris que Mila était disponible pour m'aider à décorer notre maison. Tout as ete fait dans les delai et unique a nos gout.",
     rating: 5,
     date: '16 February 2025',
-    image: 'images/avatar/patrice.png'
+    image: '/images/avatar/patrice.png'
   },
   {
     id: 'testimonial6',
@@ -51,7 +51,7 @@ const testimonials = [
     text: "Nous sommes absolument ravis de l'étonnante transformation que Mila a apportée à notre espace de vie et à la chambre des enfant",
     rating: 5,
     date: '16 February 2025',
-    image: 'images/avatar/Christophe.png'
+    image: '/images/avatar/Christophe.png'
   },
   {
     id: 'testimonial7',
@@ -59,7 +59,7 @@ const testimonials = [
     text: "Je recommande vivement Mila! elle a fait un travail formidable en créant le design magnifique. Elle est douée pour le design et la couleur, elle a écouté mes préférences, a travaillé avec mon budget et a conçu un résultat parfait, le travail a été fait dans les délais, merci à elle.",
     rating: 5,
     date: '16 February 2025',
-    image: 'images/avatar/adele.png'
+    image: '/images/avatar/adele.png'
   },
   {
     id: 'testimonial8',
@@ -67,7 +67,7 @@ const testimonials = [
     text: "J'ai eu la chance de collaborer avec Mila Barton pour la Rénovation de mon intérieur, et je ne pourrais être plus satisfait du résultat. Son talent et son sens aigu de l'esthétique ont transformé mon espace !",
     rating: 5,
     date: '19 July 2025',
-    image: 'images/avatar/theo.png'
+    image: '/images/avatar/theo.png'
   },
 ];
 

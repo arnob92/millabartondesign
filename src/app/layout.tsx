@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "MB Interior Design - Transformez votre intérieur",
+  title: "Milla Barton – Transformez votre interieur",
   description: "Transformez votre intérieur en un lieu qui vous ressemble avec MB Interior Design",
 };
 

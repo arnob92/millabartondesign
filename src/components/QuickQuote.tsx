@@ -127,7 +127,7 @@ export default function QuickQuote() {
   return (
     <section id="quickquote" className="py-16 bg-white">
       <div className="container-custom">
-        <h2 className="text-4xl md:text-3xl text-center lg:text-5xl font-bold mb-6 md:mb-18">Devis en moins d'une minute</h2>
+        <h2 className="text-4xl md:text-3xl text-center lg:text-5xl font-bold mb-10 md:mb-16">Devis en moins d'une minute</h2>
 
         <div className="mb-12 relative w-full flex flex-col items-center">
   {/* Progress track - absolutely centered */}

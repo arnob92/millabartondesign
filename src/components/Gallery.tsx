@@ -308,7 +308,7 @@ export default function Gallery() {
   return (
     <section id="portfolio" className="py-16">
       <div className="container-custom">
-        <h2 className="text-4xl md:text-3xl text-center lg:text-5xl font-bold mb-10 md:mb-16">Nos dernières rénovations</h2>
+        <h2 className="text-4xl md:text-5xl text-center lg:text-5xl font-bold mb-10 md:mb-16">Nos dernières rénovations</h2>
 
         <div className="flex flex-wrap justify-center gap-2 mb-8">
           {categories.map((category) => (

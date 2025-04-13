@@ -5,9 +5,9 @@ import { Instagram, Linkedin, Facebook, Phone, Mail, MessageSquare } from 'lucid
 
 export default function Footer() {
   return (
-    <footer className="bg-black text-white pt-16 pb-4">
-      <div className="container-custom">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-12">
+    <footer className="bg-black text-white pt-8 pb-4">
+      <div className="container-custom ">
+        <div className="flex w-4/5 mx-auto flex-col md:flex-row md:justify-between justify-center items-center mb-6">
           {/* Logo */}
           <div className="mb-8 md:mb-0">
   <Link href="/" className="inline-block">
@@ -16,7 +16,7 @@ export default function Footer() {
         <img 
           src="/logo/logov2-1.svg" 
           alt="Logo" 
-          className="w-24 h-auto md:w-32 lg:w-40 xl:w-48" // Responsive width with auto height
+          className="w-28 h-auto" // Responsive width with auto height
         />
       </div>
     </div>
@@ -75,16 +75,18 @@ export default function Footer() {
         
       </div>
       {/* Bottom Section with Copyright and Legal Links */}
-      <div className="border-t border-gray-800 ml-6 mr-6 mt-8 pt-6 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-400 text-sm mb-4 md:mb-0">© 2021 - 2025 MILLA BARTON Tous droits réservés.</p>
+      <div className='border-t border-gray-700'>
+      <div className=" border-gray-800 w-3/5 mx-auto my-6 pt-4 flex flex-col md:flex-row justify-between items-center">
+          <p className="text-white text-md md:mb-0">© 2021 - 2025 MILLA BARTON Tous droits réservés.</p>
           <div className="flex gap-6">
-            <Link href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
+            <Link href="#" className="text-white hover:text-gray-400 transition-colors text-md font-bold">
               Mentions Légales
             </Link>
-            <Link href="#" className="text-gray-400 hover:text-white transition-colors text-sm">
+            <Link href="#" className="text-white hover:text-gray-400 transition-colors font-bold text-md">
               Politique de confidentialité
             </Link>
           </div>
+        </div>
         </div>
     </footer>
   );

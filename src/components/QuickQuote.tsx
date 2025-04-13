@@ -127,28 +127,35 @@ export default function QuickQuote() {
   return (
     <section id="quickquote" className="py-16 bg-white">
       <div className="container-custom">
-        <h2 className="text-4xl md:text-3xl text-center lg:text-5xl font-bold mb-10 md:mb-16">Devis en moins d'une minute</h2>
+        <h2 className="text-4xl md:text-5xl text-center lg:text-5xl font-bold mb-9 md:mb-15">Devis en moins d'une minute</h2>
 
         <div className="mb-12 relative w-full flex flex-col items-center">
-  {/* Progress track - absolutely centered */}
-  <div className="absolute top-6 left-0 right-0 h-0.5 bg-gray-300 z-0 md:top-8 mx-auto" style={{ width: '80%' }}></div>
-  
-  {/* Progress indicator - centered with perfect math */}
-  <div 
-    className="absolute top-6 h-0.5 bg-black z-10 transition-all duration-300 md:top-8"
-    style={{ 
-      width: `${(step / 7) * 80}%`,
-      left: '10%', // (100% - 80%) / 2
-      right: 'auto'
+  {/* Progress track (gray) */}
+  <div
+    className="absolute h-0.5 bg-gray-300 z-0"
+    style={{
+      top: '26px', // aligns with vertical center of md:w-12 (48px)
+      width: '70%',
+      left: '15%'
     }}
   ></div>
-  
-  {/* Steps container - perfectly centered */}
+
+  {/* Progress indicator (black) */}
+  <div
+    className="absolute h-0.5 bg-black z-10 transition-all duration-300"
+    style={{
+      top: '26px', // same as above
+      width: `${Math.max(0, (step - 1) / 6 * 70)}%`,
+      left: '15%'
+    }}
+  ></div>
+
+  {/* Steps container */}
   <div className="relative z-20 w-full flex justify-center">
     <div className="flex justify-between" style={{ width: '80%' }}>
       {[1, 2, 3, 4, 5, 6, 7].map((stepNumber) => (
-        <div 
-          key={stepNumber} 
+        <div
+          key={stepNumber}
           className="flex flex-col items-center relative"
           style={{ width: `${100 / 7}%` }}
         >
@@ -157,15 +164,15 @@ export default function QuickQuote() {
             type="button"
             onClick={() => stepNumber <= step && setStep(stepNumber)}
             className={`
-              w-10 h-10 rounded-full flex items-center justify-center
-              md:w-12 md:h-12 font-bold relative z-10
+              w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center
+              font-bold relative z-10
               ${stepNumber <= step ? 'bg-black text-white' : 'bg-gray-200 text-gray-400'}
               ${stepNumber <= step ? 'cursor-pointer' : 'cursor-default'}
             `}
           >
             {stepNumber}
           </button>
-          
+
           {/* Step label */}
           <div className="mt-2 text-center text-xs lg:text-sm font-medium hidden lg:block">
             {stepLabels[stepNumber - 1]}
@@ -175,6 +182,8 @@ export default function QuickQuote() {
     </div>
   </div>
 </div>
+
+
 
         <div className="max-w-3xl mx-auto">
           {submitStatus === 'error' && (
@@ -214,7 +223,7 @@ export default function QuickQuote() {
                             : 'border-gray-400'
                         }`}>
                           {formData.projectType.includes(type) && (
-                            <Check className="h-6 w-6 text-white bg-black rounded-full p-0.5" />
+                            <Check className="h-6 w-6 text-white bg-black rounded-full p-0.5 " />
                           )}
                         </div>
                       </div>
@@ -226,7 +235,7 @@ export default function QuickQuote() {
                 <Button 
                   onClick={handleNext} 
                   disabled={isNextButtonDisabled()} 
-                  className="bg-black text-white rounded-none md:h-14 md:w-40"
+                  className="bg-black text-white rounded-none md:h-14 md:w-40  disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer"
                 >
                   Suivant
                 </Button>
@@ -283,7 +292,7 @@ export default function QuickQuote() {
     </div>
     <div className="flex justify-between mt-8">
                 <Button className="bg-black text-white rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
-                <Button className="rounded-none md:h-14 md:w-40" onClick={handleNext} disabled={isNextButtonDisabled()}>
+                <Button className="rounded-none md:h-14 md:w-40  disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
                   Suivant
                 </Button>
               </div>
@@ -339,7 +348,7 @@ export default function QuickQuote() {
     </div>
     <div className="flex justify-between mt-8">
                 <Button className="rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
-                <Button className="rounded-none md:h-14 md:w-40" onClick={handleNext} disabled={isNextButtonDisabled()}>
+                <Button className="rounded-none md:h-14 md:w-40  disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
                   Suivant
                 </Button>
               </div>
@@ -365,7 +374,7 @@ export default function QuickQuote() {
               </div>
               <div className="flex justify-between mt-8">
                 <Button className="rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
-                <Button className="rounded-none md:h-14 md:w-40" onClick={handleNext} disabled={isNextButtonDisabled()}>
+                <Button className="rounded-none md:h-14 md:w-40  disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
                   Suivant
                 </Button>
               </div>
@@ -416,7 +425,7 @@ export default function QuickQuote() {
     
       <div className="flex justify-between mt-8">
                 <Button className="rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
-                <Button className="rounded-none md:h-14 md:w-40" onClick={handleNext} disabled={isNextButtonDisabled()}>
+                <Button className="rounded-none md:h-14 md:w-40  disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
                   Suivant
                 </Button>
               </div>
@@ -452,7 +461,7 @@ export default function QuickQuote() {
     </div>
     <div className="flex justify-between mt-8">
                 <Button className="rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
-                <Button className="rounded-none md:h-14 md:w-40" onClick={handleNext} disabled={isNextButtonDisabled()}>
+                <Button className="rounded-none md:h-14 md:w-40  disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
                   {isSubmitting ? 'Envoi en cours...' : 'Suivant'}
                 </Button>
               </div>

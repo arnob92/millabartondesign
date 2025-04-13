@@ -4,12 +4,13 @@ import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
-import { Menu ,AlignJustify} from 'lucide-react';
+import { AlignJustify } from 'lucide-react';
 import Image from 'next/image';
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [opacity, setOpacity] = useState(1);
+  const [isLargeScreen, setIsLargeScreen] = useState(false);
 
   const navItems = [
     { label: 'Accueil', href: '/' },
@@ -20,21 +21,34 @@ export default function Header() {
   ];
 
   useEffect(() => {
-    const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const newOpacity = Math.max(0.5, 1 - scrollY / 300);
-      setOpacity(newOpacity);
+    const checkScreen = () => {
+      setIsLargeScreen(window.innerWidth >= 1024); // lg breakpoint
     };
 
+    const handleScroll = () => {
+      if (isLargeScreen) {
+        const scrollY = window.scrollY;
+        const newOpacity = Math.max(0.5, 1 - scrollY / 300);
+        setOpacity(newOpacity);
+      } else {
+        setOpacity(1); // Always opaque on small screens
+      }
+    };
+
+    checkScreen();
+    handleScroll();
+
+    window.addEventListener('resize', checkScreen);
     window.addEventListener('scroll', handleScroll);
     return () => {
+      window.removeEventListener('resize', checkScreen);
       window.removeEventListener('scroll', handleScroll);
     };
-  }, []);
+  }, [isLargeScreen]);
 
   return (
     <header 
-      className={`py-6 fixed w-full top-0 z-50 shadow-sm transition-opacity duration-300 bg-black`} 
+      className="py-6 fixed w-full top-0 z-50 shadow-sm bg-black transition-opacity duration-300"
       style={{ opacity }}
     >
       <div className="max-w-[1800px] mx-auto px-8 xl:px-16 flex items-center justify-between h-full gap-12 xl:gap-24">
@@ -65,21 +79,21 @@ export default function Header() {
         </nav>
 
         <div className="hidden lg:block flex-shrink-0">
-          <Button className= "text-black bg-white hover:bg-slate-300 hover:text-black rounded-none h-12 px-8 text-xl xl:text-lg">
+          <Button className="text-black bg-white hover:bg-slate-300 hover:text-black rounded-none h-12 px-8 text-xl xl:text-lg">
             <Link href="#quickquote">Devis Gratuit</Link>
           </Button>
         </div>
 
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
-            <Button 
-              variant="ghost"
-              className="lg:hidden text-white bg-black p-4 rounded-none transform scale-150 origin-center"
-              onClick={() => setIsOpen(!isOpen)}
-            >              
-            <AlignJustify className="h-12 w-12" />
-              <span className="sr-only">Toggle menu</span>
-            </Button>
+          <Button 
+    variant="ghost"
+    className="lg:hidden text-white bg-black p-4 rounded-none"
+    onClick={() => setIsOpen(!isOpen)}
+  >              
+    <AlignJustify style={{ width: '50px', height: '50px' }} /> {/* Inline style for size */}
+    <span className="sr-only">Toggle menu</span>
+  </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-[300px] sm:w-[400px]">
             <nav className="flex flex-col gap-4 mt-8">

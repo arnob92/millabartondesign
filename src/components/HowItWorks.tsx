@@ -27,7 +27,7 @@ export default function HowItWorks() {
   return (
     <section id="services" className="py-12 bg-white">
       <div className="container-custom w-4/5">
-        <h2 className="text-center mb-12">Comment ça marche ?</h2>
+        <h2 className=" text-4xl md:text-5xl text-center lg:text-5xl font-bold mb-12">Comment ça marche ?</h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {steps.map((step) => (

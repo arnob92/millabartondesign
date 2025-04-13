@@ -78,7 +78,7 @@ export default function Contact() {
       <div className="container-custom max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-8 lg:gap-12">
         {/* Left Column - Contact Info and Form */}
         <div className="flex-1">
-          <h2 className="text-4xl md:text-3xl lg:text-5xl font-bold mb-6 md:mb-8">Contact</h2>
+          <h2 className="text-4xl md:text-5xl lg:text-5xl font-bold mb-6 md:mb-8">Contact</h2>
 
           <div className="text-gray-700 mb-6 md:mb-8">
             <p>Milla Barton, décoratrice d'intérieur basée à Neuilly sur SEINE.</p>
@@ -182,12 +182,13 @@ export default function Contact() {
             </div>
 
             <Button
-              type="submit"
-              className="w-full  bg-gray-800 rounded-none text-white text-xl hover:bg-black py-4 px-6 transition-colors duration-300"
-              disabled={!formData.consent || isSubmitting}
-            >
-              {isSubmitting ? 'Envoi en cours...' : 'Envoyer'}
-            </Button>
+  type="submit"
+  className="rounded-none text-white text-lg hover:bg-black py-4 px-12 transition-colors duration-300 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer"
+  disabled={!formData.consent || isSubmitting}
+>
+  {isSubmitting ? 'Envoi en cours...' : 'Envoyer'}
+</Button>
+
           </form>
         </div>
 

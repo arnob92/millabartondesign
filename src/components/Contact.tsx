@@ -78,7 +78,7 @@ export default function Contact() {
       <div className="container-custom max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-8 lg:gap-12">
         {/* Left Column - Contact Info and Form */}
         <div className="flex-1">
-          <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold mb-6 md:mb-8">Contact</h2>
+          <h2 className="text-4xl md:text-3xl lg:text-5xl font-bold mb-6 md:mb-8">Contact</h2>
 
           <div className="text-gray-700 mb-6 md:mb-8">
             <p>Milla Barton, décoratrice d'intérieur basée à Neuilly sur SEINE.</p>

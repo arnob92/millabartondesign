@@ -127,7 +127,7 @@ export default function QuickQuote() {
   return (
     <section id="quickquote" className="py-16 bg-white">
       <div className="container-custom">
-        <h2 className="text-center text-5xl mb-16">Devis en moins d'une minute</h2>
+        <h2 className="text-4xl md:text-3xl text-center lg:text-5xl font-bold mb-6 md:mb-18">Devis en moins d'une minute</h2>
 
         <div className="mb-12 relative w-full flex flex-col items-center">
   {/* Progress track - absolutely centered */}
@@ -185,7 +185,7 @@ export default function QuickQuote() {
           
           {step === 1 && (
             <div className="text-center">
-              <h3 className="text-4xl font-semibold mt-16 mb-10">Votre projet concerne-t-il ?</h3>
+              <h3 className="text-2xl md:text-3xl text-center lg:text-4xl font-semibold mt-16 mb-10">Votre projet concerne-t-il ?</h3>
               <div className="flex justify-center mb-6 gap-4">
                 {['Decoration', 'Renovation'].map((type) => (
                   <div 
@@ -236,7 +236,7 @@ export default function QuickQuote() {
 
 {step === 2 && (
   <div className="text-center px-4 sm:px-0">
-    <h3 className="text-4xl font-semibold mt-16 mb-10">Nombre de pieces</h3>
+    <h3 className="text-2xl md:text-3xl text-center lg:text-4xl font-semibold mt-16 mb-10">Nombre de pieces</h3>
     <div className="flex flex-col items-center w-full mb-6">
       {['1', '2', '3', '4+'].map((value) => (
         <div 
@@ -292,7 +292,7 @@ export default function QuickQuote() {
 
 {step === 3 && (
   <div className="text-center px-4 sm:px-0">
-    <h3 className="text-4xl font-semibold mt-16 mb-10">Type de pièces</h3>
+    <h3 className="text-2xl md:text-3xl text-center lg:text-4xl font-semibold mt-16 mb-10">Type de pièces</h3>
     <div className="flex flex-col items-center w-full mb-6">
       {['Cuisine', 'Salon', 'Chambre(s)', 'Bureau', 'Extérieur'].map((roomType) => (
         <div 
@@ -347,7 +347,7 @@ export default function QuickQuote() {
 )}
           {step === 4 && (
             <div className="text-center">
-              <h3 className="text-4xl font-semibold mt-16 mb-10">Surface du bien</h3>
+              <h3 className="text-2xl md:text-3xl text-center lg:text-4xl font-semibold mt-16 mb-10">Surface du bien</h3>
               <div className="mb-6">
                 <p className="text-lg mb-2">{formData.surfaceArea} m²</p>
                 <input
@@ -374,7 +374,7 @@ export default function QuickQuote() {
 
 {step === 5 && (
   <div className="text-center">
-    <h3 className="text-4xl font-semibold mt-16 mb-10">Style de design</h3>
+    <h3 className="text-2xl md:text-3xl text-center lg:text-4xl font-semibold mt-16 mb-10">Style de design</h3>
     <div className="flex flex-col items-center mb-6">
       {['Scandinave', 'Industriel', 'Vintage', 'Pop Art', 'Contemporain', 'Autre'].map((style) => (
         <div 
@@ -426,7 +426,7 @@ export default function QuickQuote() {
 
 {step === 6 && (
   <div className="text-center px-4 sm:px-0">
-    <h3 className="text-4xl font-semibold mt-16 mb-10">Vos Coordonnés</h3>
+    <h3 className="text-2xl md:text-3xl text-center lg:text-4xl font-semibold mt-16 mb-10">Vos Coordonnés</h3>
     <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
       {['postalCode', 'firstName', 'email', 'phone'].map((field) => (
         <div key={field} className="mb-4 w-full">
@@ -461,7 +461,7 @@ export default function QuickQuote() {
 
           {step === 7 && (
             <div className="text-center">
-              <h3 className="text-4xl font-semibold mt-16 mb-10">C'est déjà fini !</h3>
+              <h3 className="text-2xl md:text-3xl text-center lg:text-4xl font-semibold mt-16 mb-10">C'est déjà fini !</h3>
               <p className="mb-4">
                 Merci d'avoir rempli notre formulaire de demande de devis. Votre satisfaction est notre priorité et nous sommes ravis de pouvoir vous aider à concrétiser votre projet de rénovation et de décoration d'intérieur.
               </p>

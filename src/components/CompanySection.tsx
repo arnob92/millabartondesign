@@ -4,7 +4,7 @@ export default function CompanySection() {
   return (
     <section id="entreprise" className="py-16 bg-white">
       <div className="container-custom">
-        <h2 className="text-left text-5xl mb-4 font-bold">L'entreprise</h2>
+        <h2 className="text-4xl md:text-4xl lg:text-5xl font-bold mb-6 md:mb-8">L'entreprise</h2>
 
         <div className="flex flex-col md:flex-row items-center gap-12"> {/* Changed to items-center */}
           <div className="flex justify-center mb-4 md:mb-0">
@@ -13,14 +13,15 @@ export default function CompanySection() {
               alt="Milla Barton"
               className="shadow-lg" 
               style={{ 
-                height: '550px',  // Increased from 600px
+                height: 'auto', 
+                maxHeight: '550px',  // Increased from 600px
                 width: 'auto',   // Changed from fixed width to auto
-                maxWidth: '450px' // Added maxWidth
+                // Changed from fixed height to auto
               }}
             />
           </div>
 
-          <div className="flex flex-col justify-center md:py-12"> {/* Added vertical padding */}
+          <div className="flex flex-col justify-center"> {/* Added vertical padding */}
             <h3 className="text-3xl font-bold mb-4">Milla Barton</h3>
             <p className="text-gray-600 text-xl font-bold mb-6">Designer d'intérieur</p>
 

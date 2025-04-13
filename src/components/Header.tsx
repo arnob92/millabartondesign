@@ -56,7 +56,7 @@ export default function Header() {
               <Link
                 key={item.label}
                 href={item.href}
-                className="text-white hover:text-gray-300 transition-colors py-1 text-lg xl:text-xl"
+                className="text-white hover:text-gray-300 transition-colors py-1 text-md xl:text-lg"
               >
                 {item.label}
               </Link>
@@ -65,7 +65,7 @@ export default function Header() {
         </nav>
 
         <div className="hidden lg:block flex-shrink-0">
-          <Button className= "text-black bg-white hover:bg-slate-300 hover:text-black rounded-none h-14 px-10 text-3xl xl:text-xl">
+          <Button className= "text-black bg-white hover:bg-slate-300 hover:text-black rounded-none h-12 px-8 text-xl xl:text-lg">
             <Link href="#quickquote">Devis Gratuit</Link>
           </Button>
         </div>

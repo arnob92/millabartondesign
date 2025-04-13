@@ -17,23 +17,23 @@ export default function Home() {
       <Header />
       <div className="space-y-8">
         <HeroSection />
-        <Spacer size={150} />
+       
         <HowItWorks />
-        <Spacer size={150} />
-        <ImageSlider />
-        <Spacer size={150} />
-        <CompanySection />
-        <Spacer size={150} />
-        <Testimonials />
-        <Spacer size={150} />
-        <QuickQuote />
-        <Spacer size={150} />
-        <Gallery />
-        <Spacer size={150} />
-        <FAQ />
-        <Spacer size={150} />
-        <Contact />
         
+        <ImageSlider />
+        <Spacer size={50} />
+        <CompanySection />
+        <Spacer size={80} />
+        <Testimonials />
+        <Spacer size={80} />
+        <QuickQuote />
+        <Spacer size={80} />
+        <Gallery />
+        <Spacer size={80} />
+        <FAQ />
+        <Spacer size={10} />
+        <Contact />
+        <Spacer size={150} />
       </div>
       <Footer />
     </main>

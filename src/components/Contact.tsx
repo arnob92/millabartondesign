@@ -78,7 +78,7 @@ export default function Contact() {
       <div className="container-custom max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-8 lg:gap-12">
         {/* Left Column - Contact Info and Form */}
         <div className="flex-1">
-          <h2 className="text-2xl md:text-3xl font-bold mb-6 md:mb-8">Contact</h2>
+          <h2 className="text-2xl md:text-3xl lg:text-5xl font-bold mb-6 md:mb-8">Contact</h2>
 
           <div className="text-gray-700 mb-6 md:mb-8">
             <p>Milla Barton, décoratrice d'intérieur basée à Neuilly sur SEINE.</p>
@@ -94,13 +94,13 @@ export default function Contact() {
           </div>
 
           {submitStatus === 'success' && (
-            <div className="mb-6 p-4 bg-green-100 text-green-700 rounded">
+            <div className="mb-6 p-4 bg-green-100 text-green-700">
               Merci pour votre message ! Nous vous répondrons rapidement.
             </div>
           )}
           
           {submitStatus === 'error' && (
-            <div className="mb-6 p-4 bg-red-100 text-red-700 rounded">
+            <div className="mb-6 p-4 bg-red-100 text-red-700 ">
               Une erreur s'est produite lors de l'envoi de votre formulaire. Veuillez réessayer.
             </div>
           )}
@@ -116,7 +116,7 @@ export default function Contact() {
                 name="name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full px-3 py-2 md:px-4 md:py-3 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-black"
+                className="w-full px-3 py-2 md:px-4 md:py-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black"
                 required
               />
             </div>
@@ -131,7 +131,7 @@ export default function Contact() {
                 name="email"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full px-3 py-2 md:px-4 md:py-3 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-black"
+                className="w-full px-3 py-2 md:px-4 md:py-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black"
                 required
               />
             </div>
@@ -146,7 +146,7 @@ export default function Contact() {
                 name="subject"
                 value={formData.subject}
                 onChange={handleChange}
-                className="w-full px-3 py-2 md:px-4 md:py-3 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-black"
+                className="w-full px-3 py-2 md:px-4 md:py-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black"
                 required
               />
             </div>
@@ -161,7 +161,7 @@ export default function Contact() {
                 rows={4}
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full px-3 py-2 md:px-4 md:py-3 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-black"
+                className="w-full px-3 py-2 md:px-4 md:py-3 border border-gray-300 focus:outline-none focus:ring-1 focus:ring-black"
                 required
               />
             </div>
@@ -192,7 +192,7 @@ export default function Contact() {
         </div>
 
         {/* Right Column - Map */}
-        <div className="flex-1 min-h-[400px] lg:min-h-[500px] rounded-lg overflow-hidden shadow-md">
+        <div className="flex-1 min-h-[400px] lg:min-h-[500px] rounded-none overflow-hidden shadow-md">
           <iframe
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10494.116591379776!2d2.245637079733847!3d48.88625196862207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e6656373e396b5%3A0xdc39759cf532b397!2sNeuilly-sur-Seine!5e0!3m2!1sfr!2sfr!4v1721041645435!5m2!1sfr!2sfr"
             width="100%"

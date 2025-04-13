@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import Masonry from 'react-masonry-css';
+import Image from 'next/image';
 
 export default function Gallery() {
   const projects = [
@@ -313,8 +314,8 @@ export default function Gallery() {
           {categories.map((category) => (
             <Button
               key={category.id}
-              variant={selectedCategory === category.id ? "default" : "outline"}
-              className={`px-4 py-2 rounded-none ${selectedCategory === category.id ? 'bg-black text-white' : 'text-gray-700'}`}
+              variant={selectedCategory === category.id ? "default" : "ghost"}
+              className={`px-4 py-3 rounded-none font-normal ${selectedCategory === category.id ? 'bg-black text-white' : 'text-gray-700'}`}
               onClick={() => setSelectedCategory(category.id)}
             >
               {category.label}

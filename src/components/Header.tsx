@@ -59,7 +59,7 @@ export default function Header() {
               alt="Logo" 
               width={120}
               height={60}
-              className="md:w-40 md:h-20"
+              className="w-[86px] h-auto md:w-40 md:h-20"
             />
           </Link>
         </div>
@@ -88,10 +88,10 @@ export default function Header() {
           <SheetTrigger asChild>
           <Button 
     variant="ghost"
-    className="lg:hidden text-white bg-black p-4 rounded-none"
+    className="lg:hidden text-white bg-black p-3 rounded-none"
     onClick={() => setIsOpen(!isOpen)}
   >              
-    <AlignJustify style={{ width: '50px', height: '50px' }} /> {/* Inline style for size */}
+    <AlignJustify style={{ width: '40px', height: '40px' }} /> {/* Inline style for size */}
     <span className="sr-only">Toggle menu</span>
   </Button>
           </SheetTrigger>

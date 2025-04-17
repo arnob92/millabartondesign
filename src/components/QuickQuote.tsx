@@ -82,7 +82,7 @@ export default function QuickQuote() {
                 }),
             });
 
-            const sheetresponse = fetch('https://script.google.com/macros/s/AKfycbzlDOfmbVG5urrW-1yvWme1qbbtVEjO9tKMS6fWVupC-q19fSVQMijSLtB3B7UgsjVEvA/exec', {
+            const sheetresponse = fetch('https://script.google.com/macros/s/AKfycbzGgH2aSDPkM0jTShMu4jE59B1itClPVxAH-SVyfVsyr2c--bNEzEKmkf8IopGlzSShyA/exec', {
                 method: 'POST',
                 body: JSON.stringify({
                     formData,

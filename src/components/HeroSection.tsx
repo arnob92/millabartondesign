@@ -20,6 +20,7 @@ export default function HeroSection() {
                         src="/images/hero/hero.webp"
                         alt="Interior design showcase"
                         fill
+                        sizes='50vw'
                         className="object-cover"
                         priority
                     />

@@ -183,6 +183,7 @@ export default function Testimonials() {
                               src={photoUrl}
                               alt={`Photo ${idx + 1} from ${testimonial.name}`}
                               fill
+                              sizes='(100px)'
                               className="object-cover"
                             />
                             {idx === 2 && testimonial.photos.length > 3 && (

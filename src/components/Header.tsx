@@ -63,6 +63,7 @@ export default function Header() {
               width={120}
               height={60}
               className="w-[86px] h-auto md:w-40 md:h-20"
+              priority
             />
           </Link>
         </div>

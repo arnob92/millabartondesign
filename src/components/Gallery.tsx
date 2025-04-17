@@ -59,7 +59,7 @@ export default function Gallery() {
         {
             id: 'project8',
             title: 'Salle à manger',
-            image: 'public/images/gallery/Maison Jungle/Salle Е manger5.webp',
+            image: '/images/gallery/Maison Jungle/Salle Е manger5.webp',
             category: 'Maison Jungle'
         },
         {

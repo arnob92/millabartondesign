@@ -8,15 +8,15 @@ import 'aos/dist/aos.css';
 import { useEffect } from 'react';
 
 type FormData = {
-    projectType: string[];
-    numberOfRooms: string[];
-    roomType: string[];
+    projectType: string;
+    numberOfRooms: string;
+    roomType: string;
     surfaceArea: number;
     postalCode: string;
     firstName: string;
     email: string;
     phone: string;
-    designStyle: string[];
+    designStyle: string;
 };
 
 export default function QuickQuote() {
@@ -26,15 +26,15 @@ export default function QuickQuote() {
 
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState<FormData>({
-        projectType: [],
-        numberOfRooms: [],
-        roomType: [],
+        projectType: '',
+        numberOfRooms: '',
+        roomType: '',
         surfaceArea: 0,
         postalCode: '',
         firstName: '',
         email: '',
         phone: '',
-        designStyle: [],
+        designStyle: '',
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<null | 'success' | 'error'>(null);
@@ -62,14 +62,8 @@ export default function QuickQuote() {
         setFormData((prevData) => ({ ...prevData, surfaceArea: Number(e.target.value) }));
     };
 
-    const handleCheckboxChange = (field: keyof FormData, value: string) => {
-        setFormData(prev => {
-            const currentValues = prev[field] as string[];
-            const newValues = currentValues.includes(value)
-                ? currentValues.filter(v => v !== value)
-                : [...currentValues, value];
-            return { ...prev, [field]: newValues };
-        });
+    const handleRadioChange = (field: keyof FormData, value: string) => {
+        setFormData(prev => ({ ...prev, [field]: value }));
     };
 
     const handleSubmit = async () => {
@@ -112,11 +106,11 @@ export default function QuickQuote() {
 
     const isNextButtonDisabled = () => {
         if (isSubmitting) return true;
-        if (step === 1) return formData.projectType.length === 0;
-        if (step === 2) return formData.numberOfRooms.length === 0;
-        if (step === 3) return formData.roomType.length === 0;
+        if (step === 1) return !formData.projectType;
+        if (step === 2) return !formData.numberOfRooms;
+        if (step === 3) return !formData.roomType;
         if (step === 4) return formData.surfaceArea < 10;
-        if (step === 5) return formData.designStyle.length === 0;
+        if (step === 5) return !formData.designStyle;
         if (step === 6) return !formData.postalCode || !formData.firstName || !formData.email || !formData.phone;
         return false;
     };
@@ -141,7 +135,7 @@ export default function QuickQuote() {
                     <div
                         className="absolute h-0.5 bg-gray-300 z-0"
                         style={{
-                            top: '26px', // aligns with vertical center of md:w-12 (48px)
+                            top: '26px',
                             width: '70%',
                             left: '15%'
                         }}
@@ -151,7 +145,7 @@ export default function QuickQuote() {
                     <div
                         className="absolute h-0.5 bg-black z-10 transition-all duration-300"
                         style={{
-                            top: '26px', // same as above
+                            top: '26px',
                             width: `${Math.max(0, (step - 1) / 6 * 70)}%`,
                             left: '15%'
                         }}
@@ -171,11 +165,11 @@ export default function QuickQuote() {
                                         type="button"
                                         onClick={() => stepNumber <= step && setStep(stepNumber)}
                                         className={`
-              w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center
-              font-bold relative z-10
-              ${stepNumber <= step ? 'bg-black text-white' : 'bg-gray-200 text-gray-400'}
-              ${stepNumber <= step ? 'cursor-pointer' : 'cursor-default'}
-            `}
+                                            w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center
+                                            font-bold relative z-10
+                                            ${stepNumber <= step ? 'bg-black text-white' : 'bg-gray-200 text-gray-400'}
+                                            ${stepNumber <= step ? 'cursor-pointer' : 'cursor-default'}
+                                        `}
                                     >
                                         {stepNumber}
                                     </button>
@@ -189,8 +183,6 @@ export default function QuickQuote() {
                         </div>
                     </div>
                 </div>
-
-
 
                 <div className="max-w-3xl mx-auto">
                     {submitStatus === 'error' && (
@@ -206,12 +198,12 @@ export default function QuickQuote() {
                                 {['Decoration', 'Renovation'].map((type) => (
                                     <div
                                         key={type}
-                                        className={`border-2 p-8 cursor-pointer transition-all duration-200 ${formData.projectType.includes(type)
+                                        className={`border-2 p-8 cursor-pointer transition-all ${formData.projectType === type
                                             ? 'border-black bg-gray-50'
                                             : 'border-gray-300 bg-gray-100'
                                             }`}
                                         style={{ height: '312px', width: '227px' }}
-                                        onClick={() => handleCheckboxChange('projectType', type)}
+                                        onClick={() => handleRadioChange('projectType', type)}
                                     >
                                         <div className="flex flex-col items-center justify-center h-full">
                                             <img
@@ -223,12 +215,12 @@ export default function QuickQuote() {
                                                 {type === 'Decoration' ? 'Décoration' : 'Rénovation'}
                                             </p>
                                             <div className="flex items-center justify-center mt-2">
-                                                <div className={`relative w-6 h-6 rounded-full border-2 flex items-center justify-center ${formData.projectType.includes(type)
+                                                <div className={`relative w-6 h-6 rounded-full border-2 flex items-center justify-center ${formData.projectType === type
                                                     ? 'border-black'
                                                     : 'border-gray-400'
                                                     }`}>
-                                                    {formData.projectType.includes(type) && (
-                                                        <Check className="h-6 w-6 text-white bg-black rounded-full p-0.5 " />
+                                                    {formData.projectType === type && (
+                                                        <Check className="h-6 w-6 text-white bg-black rounded-full p-0.5" />
                                                     )}
                                                 </div>
                                             </div>
@@ -240,7 +232,7 @@ export default function QuickQuote() {
                                 <Button
                                     onClick={handleNext}
                                     disabled={isNextButtonDisabled()}
-                                    className="bg-black text-white rounded-none md:h-14 md:w-40  disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer"
+                                    className="bg-black text-white rounded-none md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer"
                                 >
                                     Suivant
                                 </Button>
@@ -256,32 +248,32 @@ export default function QuickQuote() {
                                     <div
                                         key={value}
                                         className={`
-            p-4 mb-4 flex items-center transition-all duration-200
-            ${formData.numberOfRooms.includes(value)
+                                            p-4 mb-4 flex items-center
+                                            ${formData.numberOfRooms === value
                                                 ? 'border-[3px] border-black bg-gray-50'
                                                 : 'border border-gray-300 bg-gray-50'
                                             }
-            rounded-sm cursor-pointer
-            w-full max-w-[566px] h-[60px]
-          `}
-                                        onClick={() => handleCheckboxChange('numberOfRooms', value)}
+                                            rounded-sm cursor-pointer
+                                            w-full max-w-[566px] h-[60px]
+                                        `}
+                                        onClick={() => handleRadioChange('numberOfRooms', value)}
                                     >
                                         <div className="relative flex items-center w-full">
                                             <input
-                                                type="checkbox"
+                                                type="radio"
                                                 id={`room-${value}`}
-                                                checked={formData.numberOfRooms.includes(value)}
+                                                checked={formData.numberOfRooms === value}
                                                 onChange={() => { }}
                                                 className="absolute opacity-0 w-6 h-6 cursor-pointer"
                                             />
                                             <div className={`
-              w-6 h-6 rounded-full border-2 flex items-center justify-center
-              ${formData.numberOfRooms.includes(value)
+                                                w-6 h-6 rounded-full border-2 flex items-center justify-center
+                                                ${formData.numberOfRooms === value
                                                     ? 'bg-black border-black'
                                                     : 'bg-white border-gray-300'
                                                 }
-            `}>
-                                                {formData.numberOfRooms.includes(value) && (
+                                            `}>
+                                                {formData.numberOfRooms === value && (
                                                     <Check className="h-4 w-4 text-white" />
                                                 )}
                                             </div>
@@ -297,7 +289,7 @@ export default function QuickQuote() {
                             </div>
                             <div className="flex justify-between mt-8">
                                 <Button className="bg-black text-white rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
-                                <Button className="rounded-none md:h-14 md:w-40  disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
+                                <Button className="rounded-none md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
                                     Suivant
                                 </Button>
                             </div>
@@ -312,32 +304,32 @@ export default function QuickQuote() {
                                     <div
                                         key={roomType}
                                         className={`
-            p-4 mb-4 flex items-center transition-all duration-200
-            ${formData.roomType.includes(roomType)
+                                            p-4 mb-4 flex items-center
+                                            ${formData.roomType === roomType
                                                 ? 'border-2 border-black bg-gray-50'
                                                 : 'border border-gray-300 bg-gray-50'
                                             }
-            rounded-sm cursor-pointer
-            w-full max-w-[566px] h-[60px]
-          `}
-                                        onClick={() => handleCheckboxChange('roomType', roomType)}
+                                            rounded-sm cursor-pointer
+                                            w-full max-w-[566px] h-[60px]
+                                        `}
+                                        onClick={() => handleRadioChange('roomType', roomType)}
                                     >
                                         <div className="relative flex items-center w-full">
                                             <input
-                                                type="checkbox"
+                                                type="radio"
                                                 id={`type-${roomType}`}
-                                                checked={formData.roomType.includes(roomType)}
+                                                checked={formData.roomType === roomType}
                                                 onChange={() => { }}
                                                 className="absolute opacity-0 w-6 h-6 cursor-pointer"
                                             />
                                             <div className={`
-              w-6 h-6 rounded-full border-2 flex items-center justify-center
-              ${formData.roomType.includes(roomType)
+                                                w-6 h-6 rounded-full border-2 flex items-center justify-center
+                                                ${formData.roomType === roomType
                                                     ? 'bg-black border-black'
                                                     : 'bg-white border-gray-300'
                                                 }
-            `}>
-                                                {formData.roomType.includes(roomType) && (
+                                            `}>
+                                                {formData.roomType === roomType && (
                                                     <Check className="h-4 w-4 text-white" />
                                                 )}
                                             </div>
@@ -353,12 +345,13 @@ export default function QuickQuote() {
                             </div>
                             <div className="flex justify-between mt-8">
                                 <Button className="rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
-                                <Button className="rounded-none md:h-14 md:w-40  disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
+                                <Button className="rounded-none md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
                                     Suivant
                                 </Button>
                             </div>
                         </div>
                     )}
+
                     {step === 4 && (
                         <div className="text-center">
                             <h3 className="text-2xl md:text-3xl text-center lg:text-4xl font-semibold mt-16 mb-10">Surface du bien</h3>
@@ -379,7 +372,7 @@ export default function QuickQuote() {
                             </div>
                             <div className="flex justify-between mt-8">
                                 <Button className="rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
-                                <Button className="rounded-none md:h-14 md:w-40  disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
+                                <Button className="rounded-none md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
                                     Suivant
                                 </Button>
                             </div>
@@ -393,25 +386,25 @@ export default function QuickQuote() {
                                 {['Scandinave', 'Industriel', 'Vintage', 'Pop Art', 'Contemporain', 'Autre'].map((style) => (
                                     <div
                                         key={style}
-                                        className={`p-4 mb-4 flex items-center transition-all duration-200 ${formData.designStyle.includes(style)
+                                        className={`p-4 mb-4 flex items-center ${formData.designStyle === style
                                             ? 'border-[3px] border-black bg-gray-50'
                                             : 'border border-gray-300 bg-gray-50'
                                             } rounded-sm cursor-pointer w-full md:w-[566px] h-[50px]`}
-                                        onClick={() => handleCheckboxChange('designStyle', style)}
+                                        onClick={() => handleRadioChange('designStyle', style)}
                                     >
                                         <div className="relative flex items-center">
                                             <input
-                                                type="checkbox"
+                                                type="radio"
                                                 id={`style-${style}`}
-                                                checked={formData.designStyle.includes(style)}
+                                                checked={formData.designStyle === style}
                                                 onChange={() => { }}
                                                 className="absolute opacity-0 w-6 h-6 cursor-pointer"
                                             />
-                                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${formData.designStyle.includes(style)
+                                            <div className={`w-6 h-6 rounded-full border-2 flex items-center justify-center ${formData.designStyle === style
                                                 ? 'bg-black border-black'
                                                 : 'bg-white border-gray-300'
                                                 }`}>
-                                                {formData.designStyle.includes(style) && (
+                                                {formData.designStyle === style && (
                                                     <Check className="h-4 w-4 text-white stroke-[3px]" />
                                                 )}
                                             </div>
@@ -428,11 +421,10 @@ export default function QuickQuote() {
 
                             <div className="flex justify-between mt-8">
                                 <Button className="rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
-                                <Button className="rounded-none md:h-14 md:w-40  disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
+                                <Button className="rounded-none md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
                                     Suivant
                                 </Button>
                             </div>
-
                         </div>
                     )}
 
@@ -464,7 +456,7 @@ export default function QuickQuote() {
                             </div>
                             <div className="flex justify-between mt-8">
                                 <Button className="rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
-                                <Button className="rounded-none md:h-14 md:w-40  disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
+                                <Button className="rounded-none md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
                                     {isSubmitting ? 'Envoi en cours...' : 'Suivant'}
                                 </Button>
                             </div>

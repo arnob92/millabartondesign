@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+
+html, body {
+  overflow-x: hidden;
+}
+
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -179,4 +184,5 @@
   padding-left: 30px; /* Adjust based on your gap */
   background-clip: padding-box;
 }
+
 

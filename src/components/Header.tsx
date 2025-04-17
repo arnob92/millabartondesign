@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useEffect } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetTrigger } from '@/components/ui/sheet';
 import { AlignJustify } from 'lucide-react';
@@ -20,9 +20,12 @@ export default function Header() {
     { label: 'Devis', href: '#quickquote' },
   ];
 
-  useEffect(() => {
+  // Detect screen size and scroll on mount + resize/scroll
+  useLayoutEffect(() => {
     const checkScreen = () => {
-      setIsLargeScreen(window.innerWidth >= 1024); // lg breakpoint
+      const large = window.innerWidth >= 1024;
+      setIsLargeScreen(large);
+      if (!large) setOpacity(1); // Always opaque on mobile
     };
 
     const handleScroll = () => {
@@ -30,8 +33,6 @@ export default function Header() {
         const scrollY = window.scrollY;
         const newOpacity = Math.max(0.5, 1 - scrollY / 300);
         setOpacity(newOpacity);
-      } else {
-        setOpacity(1); // Always opaque on small screens
       }
     };
 
@@ -40,6 +41,7 @@ export default function Header() {
 
     window.addEventListener('resize', checkScreen);
     window.addEventListener('scroll', handleScroll);
+
     return () => {
       window.removeEventListener('resize', checkScreen);
       window.removeEventListener('scroll', handleScroll);
@@ -47,16 +49,17 @@ export default function Header() {
   }, [isLargeScreen]);
 
   return (
-    <header 
-      className="py-6 fixed w-full top-0 z-50 shadow-sm bg-black transition-opacity duration-300"
+    <header
+      className="py-6 fixed w-full top-0 z-50 shadow-sm bg-black transition-opacity duration-300 overflow-x-hidden"
       style={{ opacity }}
     >
-      <div className="max-w-[1800px] mx-auto px-8 xl:px-16 flex items-center justify-between h-full gap-12 xl:gap-24">
+      <div className="max-w-[1800px] mx-auto px-8 xl:px-16 flex items-center justify-between h-full gap-12 xl:gap-24 overflow-x-hidden">
+        {/* Logo */}
         <div className="flex-shrink-0">
           <Link href="/" className="flex items-center h-full">
-            <Image 
-              src="/logo/logov2-1.svg" 
-              alt="Logo" 
+            <Image
+              src="/logo/logov2-1.svg"
+              alt="Logo"
               width={120}
               height={60}
               className="w-[86px] h-auto md:w-40 md:h-20"
@@ -64,6 +67,7 @@ export default function Header() {
           </Link>
         </div>
 
+        {/* Desktop Nav */}
         <nav className="hidden lg:flex items-center justify-center h-full flex-1">
           <div className="flex items-center h-full gap-16 xl:gap-24">
             {navItems.map((item) => (
@@ -78,22 +82,24 @@ export default function Header() {
           </div>
         </nav>
 
+        {/* Desktop CTA */}
         <div className="hidden lg:block flex-shrink-0">
           <Button className="text-black bg-white hover:bg-slate-300 hover:text-black rounded-none h-12 px-8 text-xl xl:text-lg">
             <Link href="#quickquote">Devis Gratuit</Link>
           </Button>
         </div>
 
+        {/* Mobile Menu */}
         <Sheet open={isOpen} onOpenChange={setIsOpen}>
           <SheetTrigger asChild>
-          <Button 
-    variant="ghost"
-    className="lg:hidden text-white bg-black p-3 rounded-none"
-    onClick={() => setIsOpen(!isOpen)}
-  >              
-    <AlignJustify style={{ width: '40px', height: '40px' }} /> {/* Inline style for size */}
-    <span className="sr-only">Toggle menu</span>
-  </Button>
+            <Button
+              variant="ghost"
+              className="lg:hidden text-white bg-black p-3 rounded-none"
+              onClick={() => setIsOpen(!isOpen)}
+            >
+              <AlignJustify style={{ width: '40px', height: '40px' }} />
+              <span className="sr-only">Toggle menu</span>
+            </Button>
           </SheetTrigger>
           <SheetContent side="right" className="w-[300px] sm:w-[400px]">
             <nav className="flex flex-col gap-4 mt-8">

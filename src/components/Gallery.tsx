@@ -6,6 +6,7 @@ import Masonry from 'react-masonry-css';
 import Image from 'next/image';
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import { X } from 'lucide-react';
 
 export default function Gallery() {
     useEffect(() => {
@@ -58,7 +59,7 @@ export default function Gallery() {
         {
             id: 'project8',
             title: 'Salle à manger',
-            image: '/images/gallery/Maison Jungle/Salle Е manger5.webp',
+            image: 'public/images/gallery/Maison Jungle/Salle Е manger5.webp',
             category: 'Maison Jungle'
         },
         {
@@ -312,6 +313,7 @@ export default function Gallery() {
     };
 
     return (
+        <>
         <section id="portfolio" className="py-16" data-aos="fade-up">
             <div className="container-custom">
                 <h2 className="text-4xl md:text-5xl text-center lg:text-5xl font-bold mb-10 md:mb-16">Nos dernières rénovations</h2>
@@ -362,33 +364,42 @@ export default function Gallery() {
                 )}
             </div>
 
-            {/* Modal */}
-            {selectedImage && (
-                <div
-                    className="fixed inset-0 z-50 flex items-center justify-center bg-white bg-opacity-70 p-4"
-                    onClick={closeModal}
-                >
-                    <div
-                        className="relative max-w-6xl w-full max-h-[90vh]"
-                        onClick={(e) => e.stopPropagation()} // Prevent click from bubbling to parent
-                    >
-                        <button
-                            className="absolute top-0 right-0 text-black text-5xl hover:text-gray-700"
-                            onClick={closeModal}
-                        >
-                            &times;
-                        </button>
-                        <div className="overflow-hidden rounded-none">
-                            <img
-                                src={selectedImage.image}
-                                alt={selectedImage.title}
-                                className="w-full h-auto max-h-[80vh] object-contain"
-                            />
-
-                        </div>
-                    </div>
-                </div>
-            )}
+            
         </section>
+
+         {/* TRUE FULL-SCREEN MODAL (separate from gallery) */}
+      {selectedImage && (
+        <div className="fixed inset-0 z-[9999] bg-black flex flex-col">
+          {/* Close button - fixed position */}
+          <button
+            className="fixed top-4 right-4 z-50 p-2 rounded-full bg-black bg-opacity-70 hover:bg-opacity-90 transition-all md:top-6 md:right-6"
+            onClick={closeModal}
+            aria-label="Close image viewer"
+          >
+            <X className="h-6 w-6 text-white md:h-8 md:w-8" strokeWidth={2.5} />
+          </button>
+
+          {/* Image container - takes full viewport */}
+          <div className="flex-1 w-full h-[100dvh] flex items-center justify-center p-0">
+            <div className="relative w-full h-full max-w-[100vw] max-h-[100dvh]">
+              <Image
+                src={selectedImage.image}
+                alt={selectedImage.title}
+                fill
+                className="object-contain"
+                priority
+                sizes="100vw"
+              />
+            </div>
+          </div>
+
+          {/* Image info bar - fixed at bottom */}
+          <div className="fixed bottom-0 left-0 right-0 bg-black bg-opacity-80 py-3 px-4 text-center text-white">
+            <h3 className="text-lg font-medium">{selectedImage.title}</h3>
+            <p className="text-sm opacity-90">{selectedImage.category}</p>
+          </div>
+        </div>
+      )}
+      </>
     );
 }

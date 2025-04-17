@@ -72,18 +72,21 @@ export default function Footer() {
 
       {/* Bottom Section */}
       <div className="border-t border-gray-700">
-        <div className="w-3/5 mx-auto my-6 pt-4 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-white text-sm md:text-lg mb-2 md:mb-0">© 2021 - 2025 MILLA BARTON Tous droits réservés.</p>
-          <div className="flex gap-6">
-            <Link href="#" className="text-white hover:text-gray-400 transition-colors text-xs md:text-md font-bold">
-              Mentions Légales
-            </Link>
-            <Link href="#" className="text-white hover:text-gray-400 transition-colors font-bold text-xs md:text-md">
-              Politique de confidentialité
-            </Link>
-          </div>
-        </div>
-      </div>
+  <div className="w-full mx-auto my-6 pt-4 flex flex-col md:flex-row justify-between items-center px-4">
+    <p className="text-white text-sm md:text-lg mb-2 md:mb-0 text-center md:text-left">
+      © 2021 - 2025 MILLA BARTON Tous droits réservés.
+    </p>
+    <div className="flex gap-6 justify-center md:justify-start">
+      <Link href="#" className="text-white hover:text-gray-400 transition-colors text-xs md:text-md font-bold">
+        Mentions Légales
+      </Link>
+      <Link href="#" className="text-white hover:text-gray-400 transition-colors font-bold text-xs md:text-md">
+        Politique de confidentialité
+      </Link>
+    </div>
+  </div>
+</div>
+
     </footer>
   );
 }

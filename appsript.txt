@@ -25,14 +25,14 @@ function doPost(e) {
       response.setContent(JSON.stringify({status: 'success'}));
     } 
     else if (formType === 'quickquote') {
-      const quoteSheet = ss.getSheetByName('QuickQuote');
+      const quoteSheet = ss.getSheetByName('QuickQuote') || ss.insertSheet('QuickQuote');
       const quoteData = [
         new Date(),
-        formData.projectType?.join(', ') || '',
-        formData.numberOfRooms?.join(', ') || '',
-        formData.roomType?.join(', ') || '',
+        formData.projectType || '',
+        formData.numberOfRooms || '',
+        formData.roomType || '',
         formData.surfaceArea || 0,
-        formData.designStyle?.join(', ') || '',
+        formData.designStyle || '',
         formData.postalCode || '',
         formData.firstName || '',
         formData.email || '',

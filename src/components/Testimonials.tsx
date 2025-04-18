@@ -17,7 +17,6 @@ const testimonials = [
     photos: [
       '/images/testimonial/adele/image1.jpg',
       '/images/testimonial/adele/image2.jpg',
-      '/images/testimonial/adele/image3.jpg',
       '/images/testimonial/adele/image4.jpg',
       '/images/testimonial/adele/image5.jpg',
       '/images/testimonial/adele/image6.jpg',
@@ -30,7 +29,14 @@ const testimonials = [
     rating: 5,
     date: '16 February 2025',
     image: '/images/avatar/laurent.png',
-    photos: []
+    photos: [
+      '/images/testimonial/laurent/image1.jpg',
+      '/images/testimonial/laurent/image2.jpg',
+      '/images/testimonial/laurent/image3.jpg',
+      '/images/testimonial/laurent/image4.jpg',
+      '/images/testimonial/laurent/image5.jpg',
+      '/images/testimonial/laurent/image6.jpg',
+    ]
   },
   {
     id: 'testimonial3',
@@ -40,7 +46,7 @@ const testimonials = [
     date: '19 July 2025',
     image: '/images/avatar/theo.png',
     photos: [
-      '/images/testimonial/theo/images1.jpg',
+      '/images/testimonial/theo/image1.jpg',
       '/images/testimonial/theo/image2.jpg',
     ]
   },
@@ -137,7 +143,7 @@ export default function Testimonials() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {displayedTestimonials.map((testimonial) => {
               const isExpanded = expanded.includes(testimonial.id);
-              const shortText = testimonial.text.slice(0, 250);
+              const shortText = testimonial.text.slice(0, 230);
 
               return (
                 <div
@@ -145,67 +151,73 @@ export default function Testimonials() {
                   className="relative transition-all duration-500 ease-in-out"
                 >
                   <div className="relative bg-gray-50 p-6 pb-8 text-gray-700 shadow-lg min-h-[300px]">
-                    <div className="absolute top-4 left-4 text-7xl text-gray-200 font-serif leading-none">"</div>
+  <div className="absolute top-4 left-4 text-7xl text-gray-200 font-serif leading-none">"</div>
 
-                    <div className="flex justify-center mb-3 text-yellow-400">
-                      {Array.from({ length: testimonial.rating || 5 }).map((_, i) => (
-                        <Star key={i} className="h-5 w-5 fill-current mx-0.5" />
-                      ))}
-                    </div>
+  <div className="flex ml-6 mb-3 text-yellow-400">
+    {Array.from({ length: testimonial.rating || 5 }).map((_, i) => (
+      <Star key={i} className="h-5 w-5 fill-current mx-0.5" />
+    ))}
+  </div>
 
-                    <p className="text-base text-gray-600 italic relative z-10 px-4 mb-6">
-                      {isExpanded ? testimonial.text : `${shortText}...`}
-                      {testimonial.text.length > 250 && (
-                        <button
-                          onClick={() => toggleExpand(testimonial.id)}
-                          className="text-sm text-blue-600 ml-2 underline"
-                        >
-                          {isExpanded ? 'Lire moins' : 'Lire plus'}
-                        </button>
-                      )}
-                    </p>
-                    
-                    <div className="absolute -bottom-4 left-6 w-0 h-0 
-                      border-l-[16px] border-l-transparent
-                      border-r-[16px] border-r-transparent
-                      border-t-[24px] border-t-gray-50
-                      filter drop-shadow-md"></div>
+  {/* Main content container with padding at bottom for Google logo */}
+  <div className="relative z-10 px-4 mb-6 min-h-[120px]">
+    <p className="text-base text-gray-600 italic">
+      {isExpanded ? testimonial.text : `${shortText}...`}
+      {testimonial.text.length > 240 && (
+        <button
+          onClick={() => toggleExpand(testimonial.id)}
+          className="text-sm text-blue-600 ml-2 underline"
+        >
+          {isExpanded ? 'Lire moins' : 'Lire plus'}
+        </button>
+      )}
+    </p>
+  </div>
 
-                    {testimonial.photos?.length > 0 && (
-                      <div className="mt-4 flex gap-3">
-                        {testimonial.photos.slice(0, 3).map((photoUrl, idx) => (
-                          <button
-                            key={idx}
-                            onClick={() => openGallery(photoUrl, testimonial.photos)}
-                            className="w-[100px] h-[80px] sm:w-[90px] sm:h-[90px] rounded-md overflow-hidden border border-gray-300 shadow relative focus:outline-none focus:ring-2 focus:ring-blue-500"
-                          >
-                            <Image
-                              src={photoUrl}
-                              alt={`Photo ${idx + 1} from ${testimonial.name}`}
-                              fill
-                              sizes='(100px)'
-                              className="object-cover"
-                            />
-                            {idx === 2 && testimonial.photos.length > 3 && (
-                              <div className="absolute inset-0 bg-black bg-opacity-60 text-white flex items-center justify-center text-sm font-semibold">
-                                +{testimonial.photos.length - 3}
-                              </div>
-                            )}
-                          </button>
-                        ))}
-                      </div>
-                    )}
+  {/* Photos container with margin to prevent overlap */}
+  {testimonial.photos?.length > 0 && (
+    <div className="mt-auto ml-3 flex gap-3 pb-2"> {/* Added pb-2 for extra space */}
+      {testimonial.photos.slice(0, 3).map((photoUrl, idx) => (
+        <button
+          key={idx}
+          onClick={() => openGallery(photoUrl, testimonial.photos)}
+          className="w-[100px] h-[80px] sm:w-[90px] sm:h-[90px] rounded-md overflow-hidden border border-gray-300 shadow relative focus:outline-none focus:ring-2 focus:ring-blue-500"
+        >
+          <Image
+            src={photoUrl}
+            alt={`Photo ${idx + 1} from ${testimonial.name}`}
+            fill
+            sizes='(100px)'
+            className="object-cover"
+          />
+          {idx === 2 && testimonial.photos.length > 3 && (
+            <div className="absolute inset-0 bg-black bg-opacity-60 text-white flex items-center justify-center text-sm font-semibold">
+              +{testimonial.photos.length - 3}
+            </div>
+          )}
+        </button>
+      ))}
+    </div>
+  )}
 
-                    <div className="absolute bottom-4 right-4">
-                      <Image
-                        src="/images/google.png"
-                        alt="Google"
-                        width={24}
-                        height={24}
-                        className="opacity-80"
-                      />
-                    </div>
-                  </div>
+  {/* Google logo with fixed positioning */}
+  <div className="absolute bottom-4 pt-1 right-4 h-6 w-6">
+    <Image
+      src="/images/google.png"
+      alt="Google"
+      width={24}
+      height={24}
+      className="opacity-80 object-contain"
+    />
+  </div>
+
+  {/* Speech bubble arrow */}
+  <div className="absolute -bottom-4 left-6 w-0 h-0 
+    border-l-[16px] border-l-transparent
+    border-r-[16px] border-r-transparent
+    border-t-[24px] border-t-gray-50
+    filter drop-shadow-md"></div>
+</div>
 
                   <div className="flex items-center mt-8 ml-3">
                     <div className="relative h-16 w-16 rounded-full border-3 border-white overflow-hidden shadow-md">

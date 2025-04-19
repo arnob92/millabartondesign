@@ -17,7 +17,7 @@ export default function CompanySection() {
                 <div className="flex flex-col md:flex-row items-center gap-12"> {/* Changed to items-center */}
                     <div className="flex justify-center mb-4 md:mb-0" data-aos="fade-right">
                         <img
-                            src="\images\company\mila.png"
+                            src="/images/company/mila.png"
                             alt="Milla Barton"
                             className="shadow-lg"
                             style={{

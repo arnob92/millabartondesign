@@ -201,7 +201,7 @@ export default function Contact() {
                 {/* Right Column - Map */}
                 <div className="flex-1 min-h-[400px] lg:min-h-[500px] rounded-none overflow-hidden shadow-md">
                     <iframe
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d10494.116591379776!2d2.245637079733847!3d48.88625196862207!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47e6656373e396b5%3A0xdc39759cf532b397!2sNeuilly-sur-Seine!5e0!3m2!1sfr!2sfr!4v1721041645435!5m2!1sfr!2sfr"
+                        src="https://www.google.com/maps/d/u/0/embed?mid=16X28ESVi2YnYKDMonHpcIxT30laV9dM&ehbc=2E312F&noprof=1"
                         width="100%"
                         height="100%"
                         style={{ border: 0 }}
@@ -215,3 +215,5 @@ export default function Contact() {
         </section>
     );
 }
+
+

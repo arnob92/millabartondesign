@@ -50,8 +50,7 @@ export default function Header() {
 
   return (
     <header
-      className="py-6 fixed w-full top-0 z-50 shadow-sm bg-black transition-opacity duration-300 overflow-x-hidden"
-      style={{ opacity }}
+      className="py-6 fixed w-full top-0 z-50 shadow-sm bg-black overflow-x-hidden"
     >
       <div className="max-w-[1800px] mx-auto px-8 xl:px-16 flex items-center justify-between h-full gap-12 xl:gap-24 overflow-x-hidden">
         {/* Logo */}

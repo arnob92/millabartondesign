@@ -232,7 +232,7 @@ export default function QuickQuote() {
                                 <Button
                                     onClick={handleNext}
                                     disabled={isNextButtonDisabled()}
-                                    className="bg-black text-white rounded-none md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer"
+                                    className="bg-black text-white rounded-none h-14 w-32  md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer"
                                 >
                                     Suivant
                                 </Button>
@@ -288,8 +288,8 @@ export default function QuickQuote() {
                                 ))}
                             </div>
                             <div className="flex justify-between mt-8">
-                                <Button className="bg-black text-white rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
-                                <Button className="rounded-none md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
+                                <Button className="bg-black text-white rounded-none h-14 w-32 md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
+                                <Button className="rounded-none h-14 w-32 md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
                                     Suivant
                                 </Button>
                             </div>
@@ -344,8 +344,8 @@ export default function QuickQuote() {
                                 ))}
                             </div>
                             <div className="flex justify-between mt-8">
-                                <Button className="rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
-                                <Button className="rounded-none md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
+                                <Button className="rounded-none h-14 w-32  md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
+                                <Button className="rounded-none h-14 w-32 md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
                                     Suivant
                                 </Button>
                             </div>
@@ -371,8 +371,8 @@ export default function QuickQuote() {
                                 />
                             </div>
                             <div className="flex justify-between mt-8">
-                                <Button className="rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
-                                <Button className="rounded-none md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
+                                <Button className="rounded-none h-14 w-32 md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
+                                <Button className="rounded-none h-14 w-32 md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
                                     Suivant
                                 </Button>
                             </div>
@@ -420,8 +420,8 @@ export default function QuickQuote() {
                             </div>
 
                             <div className="flex justify-between mt-8">
-                                <Button className="rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
-                                <Button className="rounded-none md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
+                                <Button className="rounded-none h-14 w-32 md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
+                                <Button className="rounded-none h-14 w-32 md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
                                     Suivant
                                 </Button>
                             </div>
@@ -455,8 +455,8 @@ export default function QuickQuote() {
                                 ))}
                             </div>
                             <div className="flex justify-between mt-8">
-                                <Button className="rounded-none md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
-                                <Button className="rounded-none md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
+                                <Button className="rounded-none h-14 w-32 md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
+                                <Button className="rounded-none h-14 w-32 md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
                                     {isSubmitting ? 'Envoi en cours...' : 'Suivant'}
                                 </Button>
                             </div>
@@ -475,7 +475,7 @@ export default function QuickQuote() {
                             <p className="mb-4">
                                 En attendant, n'hésitez pas à nous contacter pour toute question ou information complémentaire.
                             </p>
-                            <Button onClick={() => window.location.href = '/'} className="bg-black text-white md:h-14 md:w-40 rounded-none">
+                            <Button onClick={() => window.location.href = '/'} className="bg-black text-white h-14 w-32 md:h-14 md:w-40 rounded-none">
                                 Retourner à l'accueil
                             </Button>
                         </div>

@@ -199,18 +199,24 @@ export default function Contact() {
                 </div>
 
                 {/* Right Column - Map */}
-                <div className="flex-1 min-h-[400px] lg:min-h-[500px] rounded-none overflow-hidden shadow-md">
-                    <iframe
-                        src="https://www.google.com/maps/d/u/0/embed?mid=16X28ESVi2YnYKDMonHpcIxT30laV9dM&ehbc=2E312F&noprof=1"
-                        width="100%"
-                        height="100%"
-                        style={{ border: 0 }}
-                        allowFullScreen={false}
-                        loading="lazy"
-                        referrerPolicy="no-referrer-when-downgrade"
-                        title="Google Maps - Neuilly sur Seine"
-                    />
-                </div>
+                <div className="flex-1 min-h-[400px] md:min-h-[540px] rounded-none overflow-hidden relative">
+  <div className="absolute inset-0 overflow-hidden h-full w-full">
+    <iframe
+      src="https://www.google.com/maps/d/u/0/embed?mid=16X28ESVi2YnYKDMonHpcIxT30laV9dM&ehbc=2E312F"
+      width="100%"
+      height="100%"
+      style={{ 
+        border: 0,
+        marginTop: '-70px',
+        height: 'calc(100% + 80px)'
+      }}
+      allowFullScreen={false}
+      loading="lazy"
+      referrerPolicy="no-referrer-when-downgrade"
+      title="Google Maps - Neuilly sur Seine"
+    />
+  </div>
+</div>
             </div>
         </section>
     );

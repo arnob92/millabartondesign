@@ -51,14 +51,14 @@ export default function Contact() {
                 }),
             });
 
-            const sheetresponse = fetch('https://script.google.com/macros/s/AKfycbzGgH2aSDPkM0jTShMu4jE59B1itClPVxAH-SVyfVsyr2c--bNEzEKmkf8IopGlzSShyA/exec', {
+            const sheetresponse = fetch('https://script.google.com/macros/s/AKfycbyzb00llhOrtosxCBqQD6iU6MS-3CuWo_uMm_tokqXaDBZ9iH4f_fJCRo0II4kjSv4/exec', {
                 method: 'POST',
                 body: JSON.stringify({
                     formData,
                     formType: 'contact'
                 }),
             });
-
+            
             if (emailresponse.ok) {
                 setSubmitStatus('success');
                 setFormData({

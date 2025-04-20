@@ -68,7 +68,7 @@ export default function HeroSection() {
                                 Obtenez une estimation en moins de 2 minutes.
                             </span>
                         </p>
-                        <div className="flex flex-row mb-10 gap-3 justify-center md:justify-start">
+                        <div className="flex flex-row mb-6 gap-3 justify-center md:justify-start">
                             <Button asChild variant="outline" className="border-black border-2 text-black hover:bg-black hover:text-white py-5 px-8 rounded-none">
                                 <Link href="#quickquote">Devis Gratuit</Link>
                             </Button>

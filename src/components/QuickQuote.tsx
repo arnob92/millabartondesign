@@ -213,35 +213,35 @@ export default function QuickQuote() {
                     onClick={() => handleRadioChange('projectType', type)}
                 >
                     {/* Mobile: Horizontal Layout (Radio on Left + Icon + Text on Right) */}
-                    <div className="md:hidden flex items-center justify-between h-full gap-4">
-                        {/* Radio Button (Left) */}
-                        <div className="flex-shrink-0">
-                            <div className={`relative w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-                                formData.projectType === type
-                                    ? 'border-black'
-                                    : 'border-gray-400'
-                            }`}>
-                                {formData.projectType === type && (
-                                    <Check className="h-6 w-6 text-white bg-black rounded-full p-0.5" />
-                                )}
-                            </div>
-                        </div>
+                    <div className="md:hidden flex items-center justify-center h-full gap-4 px-4">
+  {/* Radio Button (Left) */}
+  <div className="flex-shrink-0">
+    <div className={`relative w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+      formData.projectType === type
+        ? 'border-black'
+        : 'border-gray-400'
+    }`}>
+      {formData.projectType === type && (
+        <Check className="h-6 w-6 text-white bg-black rounded-full p-0.5" />
+      )}
+    </div>
+  </div>
 
-                        {/* Icon + Text (Right) */}
-                        <div className="flex items-center gap-4 flex-grow">
-                            <img
-                                src={`/images/quote/${type.toLowerCase()}.png`}
-                                alt={type}
-                                className="w-12 h-12"
-                                style={{ objectFit: 'contain' }}
-                            />
-                            <p className="font-semibold text-sm">
-                                {type === 'Decoration' ? 'Décoration' : 
-                                 type === 'Renovation' ? 'Rénovation' : 
-                                 'Fabrication'}
-                            </p>
-                        </div>
-                    </div>
+  {/* Icon + Text (Right) */}
+  <div className="flex items-center gap-4 flex-grow max-w-[200px]">
+    <img
+      src={`/images/quote/${type.toLowerCase()}.png`}
+      alt={type}
+      className="w-12 h-12"
+      style={{ objectFit: 'contain' }}
+    />
+    <p className="font-semibold text-sm">
+      {type === 'Decoration' ? 'Décoration' : 
+       type === 'Renovation' ? 'Rénovation' : 
+       'Fabrication'}
+    </p>
+  </div>
+</div>
 
                     {/* Desktop/Tablet: Vertical Layout (Icon + Text + Radio) */}
                     <div className="hidden md:flex flex-col items-center justify-center h-full">

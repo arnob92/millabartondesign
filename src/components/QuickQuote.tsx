@@ -17,6 +17,7 @@ type FormData = {
     email: string;
     phone: string;
     designStyle: string;
+    note:string;
 };
 
 export default function QuickQuote() {
@@ -35,6 +36,7 @@ export default function QuickQuote() {
         email: '',
         phone: '',
         designStyle: '',
+        note: '',
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitStatus, setSubmitStatus] = useState<null | 'success' | 'error'>(null);
@@ -116,7 +118,16 @@ export default function QuickQuote() {
         if (step === 3) return !formData.roomType;
         if (step === 4) return formData.surfaceArea < 10;
         if (step === 5) return !formData.designStyle;
-        if (step === 6) return !formData.postalCode || !formData.firstName || !formData.email || !formData.phone;
+        if (step === 6) {
+            // Basic required fields
+            const basicFieldsValid = !formData.postalCode || !formData.firstName || !formData.email || !formData.phone;
+            
+            // If it's Fabrication, note is optional (remove this condition if note is required)
+            if (formData.projectType === 'Fabrication') {
+                return basicFieldsValid || !formData.note;
+            }
+            return basicFieldsValid;
+        }
         return false;
     };
 
@@ -472,40 +483,89 @@ export default function QuickQuote() {
                         </div>
                     )}
 
-                    {step === 6 && (
-                        <div className="text-center px-4 sm:px-0">
-                            <h3 className="text-2xl md:text-3xl text-center lg:text-4xl font-semibold mt-16 mb-10">Vos Coordonnés</h3>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
-                                {['postalCode', 'firstName', 'email', 'phone'].map((field) => (
-                                    <div key={field} className="mb-4 w-full">
-                                        <label className="block text-center mb-2 sm:mb-4 text-lg sm:text-3xl text-neutral-600 font-bold">
-                                            {field === 'postalCode' ? 'Code postal' :
-                                                field === 'firstName' ? 'Prénom' :
-                                                    field === 'email' ? 'E-mail' : 'Téléphone'}
-                                        </label>
-                                        <input
-                                            type={field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text'}
-                                            name={field}
-                                            placeholder={field === 'postalCode' ? 'Code Postal' :
-                                                field === 'firstName' ? 'Prénom' :
-                                                    field === 'email' ? 'Email' : 'Numéro de portable'}
-                                            value={formData[field as keyof FormData]}
-                                            onChange={handleChange}
-                                            className="w-full border border-neutral-800 p-2 rounded text-sm text-center mx-auto"
-                                            style={{ maxWidth: '400px' }}
-                                            required
-                                        />
-                                    </div>
-                                ))}
-                            </div>
-                            <div className="flex justify-between mt-8">
-                                <Button className="rounded-none h-12 w-28 md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
-                                <Button className="rounded-none h-12 w-28 md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" onClick={handleNext} disabled={isNextButtonDisabled()}>
-                                    {isSubmitting ? 'Envoi en cours...' : 'Suivant'}
-                                </Button>
-                            </div>
-                        </div>
-                    )}
+{step === 6 && (
+    <div className="text-center px-4 sm:px-0">
+        <h3 className="text-2xl md:text-3xl text-center lg:text-4xl font-semibold mt-16 mb-10">Vos Coordonnés</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+            {/* Add this conditional note field */}
+            {formData.projectType === 'Fabrication' && (
+  <div className="mb-4 w-full col-span-1 sm:col-span-2">
+    <label className="block text-center mb-2 sm:mb-4 text-lg sm:text-3xl text-neutral-600 font-bold">
+      Notes sur votre projet
+    </label>
+    <div className="w-full flex justify-center">
+      <textarea
+        name="note"
+        placeholder="Décrivez votre projet de fabrication..."
+        value={formData.note}
+        onChange={(e) => setFormData({...formData, note: e.target.value})}
+        className="w-full border border-neutral-800 p-2 rounded text-sm text-left relative"
+        style={{
+          minHeight: '120px',
+          resize: 'vertical', // Allows vertical resizing
+        }}
+        onFocus={(e) => {
+          e.target.style.backgroundPosition = 'left 0.5rem';
+          e.target.style.textAlign = 'left';
+        }}
+        onBlur={(e) => {
+          if (!e.target.value) {
+            e.target.style.backgroundPosition = 'center center';
+            e.target.style.textAlign = 'center';
+          }
+        }}
+      />
+    </div>
+    <style jsx>{`
+      textarea::placeholder {
+        text-align: center;
+        line-height: 100px; /* Match this with your minHeight */
+        background-image: linear-gradient(transparent, transparent);
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: 100%;
+      }
+      textarea:focus::placeholder {
+        color: transparent;
+        background-image: none;
+      }
+    `}</style>
+  </div>
+)}
+            {['postalCode', 'firstName', 'email', 'phone'].map((field) => (
+                <div key={field} className="mb-4 w-full">
+                    <label className="block text-center mb-2 sm:mb-4 text-lg sm:text-3xl text-neutral-600 font-bold">
+                        {field === 'postalCode' ? 'Code postal' :
+                            field === 'firstName' ? 'Prénom' :
+                                field === 'email' ? 'E-mail' : 'Téléphone'}
+                    </label>
+                    <input
+                        type={field === 'email' ? 'email' : field === 'phone' ? 'tel' : 'text'}
+                        name={field}
+                        placeholder={field === 'postalCode' ? 'Code Postal' :
+                            field === 'firstName' ? 'Prénom' :
+                                field === 'email' ? 'Email' : 'Numéro de portable'}
+                        value={formData[field as keyof FormData]}
+                        onChange={handleChange}
+                        className="w-full border border-neutral-800 p-2 rounded text-sm text-center mx-auto"
+                        style={{ maxWidth: '400px' }}
+                        required
+                    />
+                </div>
+            ))}
+            
+            
+        </div>
+        <div className="flex justify-between mt-8">
+            <Button className="rounded-none h-12 w-28 md:h-14 md:w-40" onClick={handleBack}>Précédent</Button>
+            <Button className="rounded-none h-12 w-28 md:h-14 md:w-40 disabled:bg-black disabled:text-white disabled:opacity-100 disabled:cursor-pointer" 
+                onClick={handleNext} 
+                disabled={isNextButtonDisabled()}>
+                {isSubmitting ? 'Envoi en cours...' : 'Suivant'}
+            </Button>
+        </div>
+    </div>
+)}
 
                     {step === 7 && (
                         <div className="text-center">

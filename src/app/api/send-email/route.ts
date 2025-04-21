@@ -68,6 +68,10 @@ export async function POST(request: Request) {
                 <td style="padding: 8px 0; font-weight: bold;">Téléphone:</td>
                 <td style="padding: 8px 0;">${formData.phone || 'Non spécifié'}</td>
               </tr>
+              <tr>
+              <td style="padding: 8px 0; font-weight: bold;">Notes sur votre projet:</td>
+              <td style="padding: 8px 0;">${formData.note || 'Non spécifié'}</td>
+            </tr>
             </table>
     
             <div style="margin-top: 30px; padding-top: 15px; border-top: 1px solid #eee; text-align: center; font-size: 12px; color: #777;">

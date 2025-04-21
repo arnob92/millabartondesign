@@ -36,7 +36,8 @@ function doPost(e) {
         formData.postalCode || '',
         formData.firstName || '',
         formData.email || '',
-        formData.phone || ''
+        formData.phone || '',
+        formData.note || ''
       ];
       quoteSheet.appendRow(quoteData);
       response.setContent(JSON.stringify({status: 'success'}));

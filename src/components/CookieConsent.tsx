@@ -3,6 +3,8 @@
 import { useState, useEffect } from 'react';
 import Cookies from 'js-cookie';
 import { ChevronUp, ChevronDown, ChevronRight, X } from 'lucide-react';
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 export default function CookieConsent() {
   const [isVisible, setIsVisible] = useState(false);
@@ -17,18 +19,33 @@ export default function CookieConsent() {
   });
 
   useEffect(() => {
+    // Initialize AOS
+    AOS.init({
+      duration: 500,
+      easing: 'ease-in-out',
+      once: true
+    });
+  }, []);
+
+  useEffect(() => {
     const savedConsent = Cookies.get('cookie-consent');
     if (!savedConsent) {
-      setIsVisible(true);
+      // Check if mobile immediately
+      const isMobile = window.innerWidth <= 768;
       
-      const timer = setTimeout(() => {
-        if (!consentGiven) {
-          setIsVisible(false);
-          setShowMinimized(true);
-        }
-      }, 10000);
-      
-      return () => clearTimeout(timer);
+      if (isMobile) {
+        // Mobile - show after 10 seconds
+        const timer = setTimeout(() => {
+          if (!consentGiven) {
+            setIsVisible(true);
+          }
+        }, 10000);
+        
+        return () => clearTimeout(timer);
+      } else {
+        // Desktop - show immediately
+        setIsVisible(true);
+      }
     } else {
       setConsent(JSON.parse(savedConsent));
       setConsentGiven(true);
@@ -101,6 +118,8 @@ export default function CookieConsent() {
         <div 
           className="fixed bottom-0 right-2 z-50 cursor-pointer"
           onClick={openConsentModal}
+          data-aos="fade-up"
+          data-aos-delay="100"
         >
           <div className="bg-white px-4 rounded-none shadow-lg flex items-center justify-center border border-gray-200">
             <ChevronUp size={32} className="text-gray-500"/>
@@ -110,7 +129,11 @@ export default function CookieConsent() {
 
       {/* Expanded state - consent modal */}
       {isVisible && (
-        <div className="fixed bottom-0 left-0 right-0 lg:left-auto lg:right-4 lg:bottom-4 z-50">
+        <div 
+          className="fixed bottom-0 left-0 right-0 lg:left-auto lg:right-4 lg:bottom-4 z-50"
+          data-aos="fade-up"
+          data-aos-delay="100"
+        >
           <div className="bg-white shadow-xl w-full lg:w-auto lg:max-w-lg relative">
             <button 
               onClick={closeConsentModal}
@@ -131,18 +154,21 @@ export default function CookieConsent() {
                     <button 
                       onClick={handleAcceptAll}
                       className="px-4 py-2 bg-black text-white rounded text-sm hover:bg-gray-800 font-medium flex-grow min-w-[120px]"
+                      
                     >
                       Accepter
                     </button>
                     <button 
                       onClick={handleRejectAll}
                       className="px-4 py-2 bg-gray-50 text-black rounded text-sm hover:bg-gray-200 font-medium flex-grow min-w-[120px]"
+                      
                     >
                       Refuser
                     </button>
                     <button 
                       onClick={() => setIsExpanded(true)}
                       className="px-4 py-2 bg-gray-50 text-black rounded text-sm hover:bg-gray-200 font-medium flex-grow min-w-[120px] md:min-w-[150px]"
+                      
                     >
                       Voir les préférences
                     </button>
@@ -155,7 +181,11 @@ export default function CookieConsent() {
                   </p>
 
                   {/* Fonctionnel */}
-                  <div className="mb-3 p-4 bg-gray-50 rounded cursor-pointer hover:bg-gray-100 transition-colors">
+                  <div 
+                    className="mb-3 p-4 bg-gray-50 rounded cursor-pointer hover:bg-gray-100 transition-colors"
+                    data-aos="fade-up"
+                    data-aos-delay="100"
+                  >
                     <div 
                       className="flex justify-between items-center"
                       onClick={() => toggleCategoryExpand('fonctionnel')}
@@ -176,7 +206,11 @@ export default function CookieConsent() {
                   </div>
 
                   {/* Statistiques */}
-                  <div className="mb-3 p-4 bg-gray-50 rounded hover:bg-gray-100 transition-colors">
+                  <div 
+                    className="mb-3 p-4 bg-gray-50 rounded hover:bg-gray-100 transition-colors"
+                    data-aos="fade-up"
+                    data-aos-delay="200"
+                  >
                     <div className="flex justify-between items-center">
                       <div 
                         className="flex-grow cursor-pointer"
@@ -210,7 +244,11 @@ export default function CookieConsent() {
                   </div>
 
                   {/* Marketing */}
-                  <div className="mb-4 p-4 bg-gray-50 rounded hover:bg-gray-100 transition-colors">
+                  <div 
+                    className="mb-4 p-4 bg-gray-50 rounded hover:bg-gray-100 transition-colors"
+                    data-aos="fade-up"
+                    data-aos-delay="300"
+                  >
                     <div className="flex justify-between items-center">
                       <div 
                         className="flex-grow cursor-pointer"
@@ -247,18 +285,21 @@ export default function CookieConsent() {
                     <button 
                       onClick={handleAcceptAll}
                       className="px-4 py-2 bg-black text-white rounded text-sm hover:bg-gray-800 font-medium flex-grow min-w-[120px]"
+                      
                     >
                       Tout accepter
                     </button>
                     <button 
                       onClick={handleRejectAll}
                       className="px-4 py-2 bg-gray-50 text-black rounded text-sm hover:bg-gray-800 font-medium flex-grow min-w-[120px]"
+                      
                     >
                       Tout refuser
                     </button>
                     <button 
                       onClick={handleSavePreferences}
                       className="px-4 py-2 bg-gray-50 text-black rounded text-sm hover:bg-gray-200 font-medium flex-grow min-w-[120px] md:min-w-[150px]"
+                      
                     >
                       Enregistrer les préférences
                     </button>

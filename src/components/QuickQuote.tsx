@@ -172,7 +172,7 @@ export default function QuickQuote() {
                                         className={`
                                             w-10 h-10 md:w-12 md:h-12 rounded-full flex items-center justify-center
                                             font-bold relative z-10
-                                            ${stepNumber <= step ? 'bg-black text-white' : 'bg-gray-200 text-gray-400'}
+                                            ${stepNumber <= step ? 'bg-black text-white' : 'bg-[#e7dccd] text-gray-900'}
                                             ${stepNumber <= step ? 'cursor-pointer' : 'cursor-default'}
                                         `}
                                     >
@@ -207,41 +207,41 @@ export default function QuickQuote() {
                     key={type}
                     className={`border-2 p-4 md:p-6 cursor-pointer transition-all w-full max-w-md md:w-auto md:max-w-none md:h-[312px] md:min-w-[227px] ${
                         formData.projectType === type
-                            ? 'border-black bg-gray-50'
-                            : 'border-gray-300 bg-gray-100'
+                            ? 'border-black bg-[#F5F1EB]' // Changed to primary color when selected
+                            : 'border-gray-300 bg-[#e7dccd]' // Changed base color to primary
                     }`}
                     onClick={() => handleRadioChange('projectType', type)}
                 >
                     {/* Mobile: Horizontal Layout (Radio on Left + Icon + Text on Right) */}
                     <div className="md:hidden flex items-center justify-center h-full gap-4 px-4">
-  {/* Radio Button (Left) */}
-  <div className="flex-shrink-0">
-    <div className={`relative w-6 h-6 rounded-full border-2 flex items-center justify-center ${
-      formData.projectType === type
-        ? 'border-black'
-        : 'border-gray-400'
-    }`}>
-      {formData.projectType === type && (
-        <Check className="h-6 w-6 text-white bg-black rounded-full p-0.5" />
-      )}
-    </div>
-  </div>
+                        {/* Radio Button (Left) */}
+                        <div className="flex-shrink-0">
+                            <div className={`relative w-6 h-6 rounded-full border-2 flex items-center justify-center ${
+                                formData.projectType === type
+                                    ? 'border-black'
+                                    : 'border-gray-400'
+                            }`}>
+                                {formData.projectType === type && (
+                                    <Check className="h-6 w-6 text-white bg-black rounded-full p-0.5" />
+                                )}
+                            </div>
+                        </div>
 
-  {/* Icon + Text (Right) */}
-  <div className="flex items-center gap-4 flex-grow max-w-[200px]">
-    <img
-      src={`/images/quote/${type.toLowerCase()}.png`}
-      alt={type}
-      className="w-12 h-12"
-      style={{ objectFit: 'contain' }}
-    />
-    <p className="font-semibold text-sm">
-      {type === 'Decoration' ? 'Décoration' : 
-       type === 'Renovation' ? 'Rénovation' : 
-       'Fabrication'}
-    </p>
-  </div>
-</div>
+                        {/* Icon + Text (Right) */}
+                        <div className="flex items-center gap-4 flex-grow max-w-[200px]">
+                            <img
+                                src={`/images/quote/${type.toLowerCase()}.png`}
+                                alt={type}
+                                className="w-12 h-12"
+                                style={{ objectFit: 'contain' }}
+                            />
+                            <p className="font-semibold text-sm">
+                                {type === 'Decoration' ? 'Décoration' : 
+                                type === 'Renovation' ? 'Rénovation' : 
+                                'Fabrication'}
+                            </p>
+                        </div>
+                    </div>
 
                     {/* Desktop/Tablet: Vertical Layout (Icon + Text + Radio) */}
                     <div className="hidden md:flex flex-col items-center justify-center h-full">
@@ -253,8 +253,8 @@ export default function QuickQuote() {
                         />
                         <p className="font-semibold text-base">
                             {type === 'Decoration' ? 'Décoration' : 
-                             type === 'Renovation' ? 'Rénovation' : 
-                             'Fabrication'}
+                            type === 'Renovation' ? 'Rénovation' : 
+                            'Fabrication'}
                         </p>
                         <div className="flex items-center justify-center mt-4">
                             <div className={`relative w-6 h-6 rounded-full border-2 flex items-center justify-center ${
@@ -283,7 +283,6 @@ export default function QuickQuote() {
         </div>
     </div>
 )}
-
                     {/* Rest of the steps remain exactly the same as before */}
                     {step === 2 && (
                         <div className="text-center px-4 sm:px-0">
@@ -405,12 +404,12 @@ export default function QuickQuote() {
                                 <input
                                     type="range"
                                     min="0"
-                                    max="100"
+                                    max="250"
                                     value={formData.surfaceArea}
                                     onChange={handleSliderChange}
                                     className="w-full custom-slider"
                                     style={{
-                                        background: `linear-gradient(to right, black ${formData.surfaceArea}%, rgba(240, 240, 240, 1) ${formData.surfaceArea}%)`
+                                        background: `linear-gradient(to right, black ${(formData.surfaceArea / 250) * 100}%, rgba(240, 240, 240, 1) ${(formData.surfaceArea / 250) * 100}%)`
                                     }}
                                     required
                                 />

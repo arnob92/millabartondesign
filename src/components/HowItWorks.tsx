@@ -39,7 +39,7 @@ export default function HowItWorks() {
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {steps.map((step) => (
                         <div key={step.id} className="process-item">
-                            <div className="flex justify-center bg-gray-200 p-4 ">
+                            <div className="flex justify-center p-4 " style={{background:'#e7dccd'}}>
                                 {step.icon}
                             </div>
                             <p className="text-xl mb-3 mt-3">{step.title}</p>

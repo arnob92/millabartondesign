@@ -53,7 +53,7 @@ export default function HeroSection() {
                         ))}
                     </Swiper>
                 </div>
-                <div className="w-full flex items-center order-2 md:order-1" style={{ background: '#ECECDC' }} data-aos="fade-right">
+                <div className="w-full flex items-center order-2 md:order-1" style={{ background: '#F3F4F6' }} data-aos="fade-right">
                     <div className="w-full px-8 py-5 md:px-12 lg:px-16">
                         <h1 className="md:mb-3 leading-tight text-[20px] sm:text-2xl md:text-3xl lg:text-5xl pt-4 pb-4">
                             Transformez votre intérieur <br />

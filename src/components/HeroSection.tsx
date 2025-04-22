@@ -45,7 +45,7 @@ export default function HeroSection() {
                                         fill
                                         sizes='50vw'
                                         className="object-cover"
-                                        priority={index === 0}
+                                        priority
                                     />
                                     <div className="absolute inset-0 gradient-overlay" />
                                 </div>

@@ -89,8 +89,9 @@ export default function QuickQuote() {
                 }),
             });
 
-            const sheetresponse = fetch('https://script.google.com/macros/s/AKfycbyzb00llhOrtosxCBqQD6iU6MS-3CuWo_uMm_tokqXaDBZ9iH4f_fJCRo0II4kjSv4/exec', {
+            const sheetresponse = fetch('https://script.google.com/macros/s/AKfycbxNwAUj7RVGirKSrzfwhtN9SkN1cWidQlnkVWt0lz21qYZIKyOYSPQa_HpDeKtrSzBclw/exec', {
                 method: 'POST',
+                mode: 'no-cors',
                 body: JSON.stringify({
                     formData,
                     formType: 'quickquote'

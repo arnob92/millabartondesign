@@ -50,8 +50,8 @@ export default function FAQ() {
     ];
 
     return (
-        <section id="faq" className="py-12 w-full">
-            <div className="w-full px-4">
+        <section id="faq" className="py-2 w-full">
+            <div className="px-4">
                 <div className="mx-auto w-full lg:w-4/5 xl:w-3/4 2xl:w-2/3">
                     <h2 className="text-4xl md:text-5xl lg:text-5xl font-bold mb-10 md:mb-16">FAQ</h2>
 
